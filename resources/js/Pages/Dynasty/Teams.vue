@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <Head :title="dynastyName"/>
+  <Head :title="dynastyName + ' |  Teams'"/>
 
   <AuthenticatedLayout :dynastyId="dynastyId">
     <template #header>

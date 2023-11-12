@@ -13,6 +13,8 @@ const props = defineProps({
     }
 })
 
+const emit = defineEmits(['created'])
+
 let showModal = ref(false)
 
 const form = useForm({
@@ -24,6 +26,7 @@ function createDivision() {
         onSuccess: () => {
             form.reset()
             showModal.value = false
+            emit('created')
         }
     })
 }

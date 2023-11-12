@@ -15,7 +15,7 @@ defineProps({
 <template>
     <div class="flex justify-between mb-1">
         <h3 class="font-semibold">
-            {{ conferenceAbbreviation + ' ' + division.name }}
+            {{ conferenceAbbreviation + ((conferenceAbbreviation === division.name) ? '' : ' ' + division.name) }}
         </h3>
         <CreateTeam :divisionId="division.id"/>
     </div>

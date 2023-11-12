@@ -1,6 +1,6 @@
 <script setup>
 import {inject} from "vue";
-import {HomeIcon, UsersIcon} from "@heroicons/vue/24/outline/index.js";
+import {CalendarIcon, HomeIcon, UsersIcon} from "@heroicons/vue/24/outline/index.js";
 import {Link} from "@inertiajs/vue3";
 
 const dynastyId = inject('dynastyId')
@@ -24,6 +24,11 @@ const dynastyNavItems = [
         name: 'Teams',
         icon: UsersIcon,
         route: 'conference.index'
+    },
+    {
+        name: 'Seasons',
+        icon: CalendarIcon,
+        route: 'season.index'
     }
 ]
 </script>

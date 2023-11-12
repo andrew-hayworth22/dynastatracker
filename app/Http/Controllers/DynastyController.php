@@ -28,7 +28,7 @@ class DynastyController extends Controller
             'status' => 'Active'
         ]);
 
-        return to_route('dynasty.dashboard', ['id' => $dynasty->id]);
+        return to_route('dynasty.show', ['id' => $dynasty->id]);
     }
 
     // Delete a dynasty

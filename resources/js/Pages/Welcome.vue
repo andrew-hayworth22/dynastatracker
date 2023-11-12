@@ -33,7 +33,7 @@ defineProps({
                     Remember the glory of your football dynasty by tracking your stats, scores, and awards.
                 </p>
                 <div v-if="canLogin" class="mt-10 flex items-center gap-x-3">
-                    <LinkButton v-if="$page.props.auth.user" :to="route('dashboard')">Dashboard</LinkButton>
+                    <LinkButton v-if="$page.props.auth.user" :to="route('dynasty.index')">Dashboard</LinkButton>
                     <template v-else>
                         <LinkButton :to="route('login')">Login</LinkButton>
                         <LinkButton :to="route('register')" type="secondary">Register <span aria-hidden="true">→</span></LinkButton>

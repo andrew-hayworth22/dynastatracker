@@ -24,4 +24,8 @@ class Dynasty extends Model
     public function conferences() : HasMany {
         return $this->hasMany(Conference::class);
     }
+
+    public function seasons() : HasMany {
+        return $this->hasMany(Season::class);
+    }
 }

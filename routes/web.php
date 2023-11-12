@@ -4,6 +4,7 @@ use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\DynastyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ConferenceController;
+use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/team/{id}', [TeamController::class, 'update'])->name('team.update');
     Route::post('/conference/{conferenceId}/division', [DivisionController::class, 'store'])->name('division.store');
     Route::post('/dynasty/{dynastyId}/conference', [ConferenceController::class, 'store'])->name('conference.store');
+    Route::get('/dynasty/{dynastyId}/seasons', [SeasonController::class, 'index'])->name('season.index');
 });
 
 
