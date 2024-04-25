@@ -5,14 +5,14 @@ import EmptyState from "@/Components/EmptyState.vue";
 import {useForm} from "@inertiajs/vue3";
 import Pagination from "@/Components/Pagination.vue";
 import Slideout from "@/Components/Slideout.vue";
-import {gitref} from "vue";
 import InputError from "@/Components/InputError.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import FilterBar from "@/Pages/Players/FilterBar.vue";
+import FilterBar from "@/Components/FilterBar.vue";
 import Checkbox from "@/Components/Checkbox.vue";
+import {ref} from "vue";
 
 const props = defineProps({
     dynasty: {
@@ -84,18 +84,19 @@ const savePlayer = function() {
     <AppLayout :title="`${dynasty.name} Players`">
         <DynastyHeader :dynasty="dynasty" />
 
+        <div class="flex mb-4 justify-between">
+            <FilterBar field="is_active"
+                       :values="['Active', 'Inactive', 'All']"
+                       :filter="filter"
+                       :only="['players']"
+                       :url="route('dynasties.players.index', dynasty.id)"
+            />
+            <PrimaryButton v-if="players.data.length > 0" @click="showSlideout = true">
+                Create Player
+            </PrimaryButton>
+        </div>
+
         <template v-if="players.data.length > 0">
-            <div class="flex mb-4 justify-between">
-                <FilterBar field="is_active"
-                           :values="['Active', 'Inactive', 'All']"
-                           :filter="filter"
-                           :only="['players']"
-                           :url="route('dynasties.players.index', dynasty.id)"
-                />
-                <PrimaryButton @click="showSlideout = true">
-                    Create Player
-                </PrimaryButton>
-            </div>
             <div class="flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">

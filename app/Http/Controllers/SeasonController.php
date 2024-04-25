@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\DynastyResource;
+use App\Http\Resources\PlayerResource;
 use App\Http\Resources\SeasonResource;
 use App\Http\Resources\TeamResource;
 use App\Models\Dynasty;
@@ -22,7 +23,8 @@ class SeasonController extends Controller
 
         return inertia('Seasons/Index', [
             'dynasty' => fn () => DynastyResource::make($dynasty),
-            'seasons' => fn () => SeasonResource::collection($dynasty->seasons()->latest('year')->latest()->get()->load('team'))
+            'seasons' => fn () => SeasonResource::collection($dynasty->seasons()->latest('year')->latest()->get()->load('team')),
+            'teams' => fn () => TeamResource::collection($dynasty->teams)
         ]);
     }
 
@@ -31,12 +33,7 @@ class SeasonController extends Controller
      */
     public function create(Dynasty $dynasty)
     {
-        Gate::authorize('create', [Season::class, $dynasty]);
 
-        return inertia('Seasons/Create', [
-            'dynasty' => fn () => DynastyResource::make($dynasty),
-            'teams' => fn () => TeamResource::collection($dynasty->teams)
-        ]);
     }
 
     /**
@@ -97,5 +94,19 @@ class SeasonController extends Controller
     public function destroy(Season $season)
     {
         //
+    }
+
+    /**
+     * Display the roster for the specified season.
+     */
+    public function roster(Season $season)
+    {
+        Gate::authorize('view', $season);
+
+        return inertia('Seasons/Roster', [
+            'dynasty' => fn () => DynastyResource::make($season->dynasty),
+            'season' => fn () => SeasonResource::make($season->load('team')),
+            'players' => fn () => PlayerResource::collection($season->players)
+        ]);
     }
 }

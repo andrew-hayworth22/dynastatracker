@@ -19,6 +19,13 @@ defineProps({
     <AppLayout title="Dynasties">
         <DynastyHeader :dynasty="dynasty" />
 
-        {{ season.year }}
+        <div class="grid grid-cols-[1fr_500px] gap-4">
+            <div class="bg-amber-500">
+                Left Column
+            </div>
+            <div class="bg-pink-500">
+                Right Column
+            </div>
+        </div>
     </AppLayout>
 </template>

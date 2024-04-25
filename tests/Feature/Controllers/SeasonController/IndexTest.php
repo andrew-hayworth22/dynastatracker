@@ -2,8 +2,12 @@
 
 use App\Http\Resources\DynastyResource;
 use App\Http\Resources\SeasonResource;
+use App\Http\Resources\TeamResource;
+use App\Models\Conference;
+use App\Models\Division;
 use App\Models\Dynasty;
 use App\Models\Season;
+use App\Models\Team;
 use App\Models\User;
 
 it('requires authentication', function () {
@@ -46,4 +50,22 @@ it('returns the correct seasons', function () {
     $this->actingAs($dynasty->user)
         ->get(route('dynasties.seasons.index', $dynasty))
         ->assertHasResource('seasons', $seasons);
+});
+
+it('includes the correct teams', function () {
+    $user = User::factory()->create();
+    $dynasty = Dynasty::factory()->create([
+        'user_id' => $user->id
+    ]);
+
+    Conference::factory()
+        ->has(Division::factory(2)
+            ->has(Team::factory(3)))
+        ->create(['dynasty_id' => $dynasty->id]);
+
+    $teams = TeamResource::collection($dynasty->teams);
+
+    $this->actingAs($user)
+        ->get(route('dynasties.seasons.index', $dynasty->id))
+        ->assertHasResource('teams', $teams);
 });

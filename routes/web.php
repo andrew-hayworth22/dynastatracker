@@ -33,7 +33,8 @@ Route::middleware([
     Route::resource('conferences.divisions', DivisionController::class)->shallow()->only(['store']);
     Route::resource('divisions.teams', TeamController::class)->shallow()->only(['store']);
 
-    Route::resource('dynasties.seasons', SeasonController::class)->shallow()->only(['index', 'create', 'store', 'show']);
+    Route::resource('dynasties.seasons', SeasonController::class)->shallow()->only(['index', 'store', 'show']);
+    Route::get('seasons/{season}/roster', [SeasonController::class, 'roster'])->name('seasons.roster');
 
     Route::resource('dynasties.players', PlayerController::class)->shallow()->only(['index', 'store', 'update']);
 });
