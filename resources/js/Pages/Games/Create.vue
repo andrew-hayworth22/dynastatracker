@@ -27,6 +27,7 @@ const props = defineProps({
     },
 });
 
+const opposingTeamName = ref(null);
 const form = useForm({
     'opp_team_id': null,
     'location': null,
@@ -99,19 +100,138 @@ const createGame = () => {
         <form @submit.prevent="createGame" class="flex flex-col gap-4">
             <Card>
                 <template #title>
-                    General Information
+                    Game Information
+                </template>
+
+                <div class="grid sm:grid-cols-2 gap-x-4 gap-y-6">
+                    <div>
+                        <InputLabel for="opp_team">
+                            Opposing Team
+                        </InputLabel>
+                        <InputSelect
+                            id="opp_team"
+                            v-model="form.opp_team_id"
+                            class="mt-1 block w-full"
+                        >
+                            <option :value="null" disabled>
+                                Select a team...
+                            </option>
+                            <option v-for="team in teams" :key="team.id" :value="team.id">
+                                {{ team.college_abbreviation }}
+                            </option>
+                        </InputSelect>
+                        <InputError :message="form.errors.opp_team_id" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="location">
+                            Location
+                        </InputLabel>
+                        <InputSelect
+                            id="location"
+                            v-model="form.location"
+                            class="mt-1 block w-full"
+                        >
+                            <option :value="null" disabled>
+                                Select a location...
+                            </option>
+                            <option value="Home"> Home </option>
+                            <option value="Away"> Away </option>
+                            <option value="Neutral"> Neutral </option>
+                        </InputSelect>
+                        <InputError :message="form.errors.location" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="type">
+                            Type
+                        </InputLabel>
+                        <InputSelect
+                            id="type"
+                            v-model="form.type"
+                            class="mt-1 block w-full"
+                        >
+                            <option :value="null" disabled>
+                                Select a type...
+                            </option>
+                            <option value="Regular Season"> Regular Season </option>
+                            <option value="Conference Championship"> Conference Championship </option>
+                            <option value="Bowl Game"> Bowl Game </option>
+                            <option value="National Octafinals"> National Octafinals </option>
+                            <option value="National Quarterfinals"> National Quarterfinals </option>
+                            <option value="National Semifinals"> National Semifinals </option>
+                            <option value="National Championship"> National Championship </option>
+                        </InputSelect>
+                        <InputError :message="form.errors.type" class="mt-2" />
+                    </div>
+
+                    <div v-if="form.type === 'Regular Season'">
+                        <InputLabel for="week">
+                            Week
+                        </InputLabel>
+                        <TextInput
+                            id="week"
+                            v-model="form.week"
+                            type="number"
+                            class="mt-1 block w-full"
+                            min="1"
+                            max="12"
+                            :has-errors="form.errors.week !== undefined"
+                        />
+                        <InputError :message="form.errors.week" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="coverage">
+                            Coverage
+                        </InputLabel>
+                        <InputSelect
+                            id="coverage"
+                            v-model="form.coverage"
+                            class="mt-1 block w-full"
+                        >
+                            <option :value="null" disabled>
+                                Select a coverage...
+                            </option>
+                            <option value="None"> None </option>
+                            <option value="Regional"> Regional </option>
+                            <option value="National"> National </option>
+                        </InputSelect>
+                        <InputError :message="form.errors.coverage" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="date">
+                            Date
+                        </InputLabel>
+                        <TextInput
+                            id="date"
+                            v-model="form.date"
+                            type="datetime-local"
+                            class="mt-1 block w-full"
+                            :has-errors="form.errors.date !== undefined"
+                        />
+                        <InputError :message="form.errors.date" class="mt-2" />
+                    </div>
+                </div>
+
+            </Card>
+
+            <Card>
+                <template #title>
+                    Box Score
                 </template>
 
                 <div class="grid grid-cols-7 gap-1 text-center">
                     <div></div>
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>OT</div>
-                    <div>F</div>
+                    <div class="pb-1 font-bold">1</div>
+                    <div class="pb-1 font-bold">2</div>
+                    <div class="pb-1 font-bold">3</div>
+                    <div class="pb-1 font-bold">4</div>
+                    <div class="pb-1 font-bold">OT</div>
+                    <div class="pb-1 font-bold">F</div>
 
-                    <div class="text-left"> Our Team </div>
+                    <div class="flex items-center text-left"> {{ season.team.college_abbreviation }} </div>
                     <div>
                         <TextInput
                             v-model="form.our_score_q1"
@@ -152,12 +272,12 @@ const createGame = () => {
                             class="block w-full"
                         />
                     </div>
-                    <div class="bold">
+                    <div class="font-bold flex items-center justify-center">
                         {{ toNumber(form.our_score_q1) + toNumber(form.our_score_q2) + toNumber(form.our_score_q3) + toNumber(form.our_score_q4) + toNumber(form.our_score_ot) }}
                     </div>
 
-                    <div class="text-left">
-                        Opposing Team
+                    <div class="flex items-center text-left">
+                        {{ opposingTeamName ?? 'Opposing Team' }}
                     </div>
                     <div>
                         <TextInput
@@ -199,7 +319,7 @@ const createGame = () => {
                             class="block w-full"
                         />
                     </div>
-                    <div class="bold">
+                    <div class="font-bold flex items-center justify-center">
                         {{ toNumber(form.opp_score_q1) + toNumber(form.opp_score_q2) + toNumber(form.opp_score_q3) + toNumber(form.opp_score_q4) + toNumber(form.opp_score_ot) }}
                     </div>
                 </div>
