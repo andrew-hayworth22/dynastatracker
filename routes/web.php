@@ -3,6 +3,7 @@
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\DynastyController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\TeamController;
@@ -35,6 +36,8 @@ Route::middleware([
 
     Route::resource('dynasties.seasons', SeasonController::class)->shallow()->only(['index', 'store', 'show']);
     Route::get('seasons/{season}/roster', [SeasonController::class, 'roster'])->name('seasons.roster');
+
+    Route::resource('seasons.games', GameController::class)->shallow()->only(['create']);
 
     Route::resource('dynasties.players', PlayerController::class)->shallow()->only(['index', 'store', 'update']);
 });

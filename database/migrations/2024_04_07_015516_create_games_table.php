@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Season::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Team::class, 'opponent_team_id')->constrained('teams');
+            $table->foreignIdFor(Team::class, 'opp_team_id')->constrained('teams');
             $table->enum('location', ['Home', 'Away', 'Neutral']);
             $table->enum('type', ['Regular Season', 'Conference Championship', 'Bowl Game', 'National Octafinals', 'National Quarterfinals', 'National Semifinals', 'National Championship']);
+            $table->integer('week');
+            $table->enum('coverage', ['None', 'Regional', 'National']);
             $table->dateTime('date');
 
             // Our stats
@@ -26,6 +28,7 @@ return new class extends Migration
             $table->integer('our_score_q2');
             $table->integer('our_score_q3');
             $table->integer('our_score_q4');
+            $table->integer('our_score_ot');
 
             $table->integer('our_first_downs');
 
@@ -36,8 +39,8 @@ return new class extends Migration
             $table->integer('our_two_point_att');
             $table->integer('our_two_point_conv');
             $table->integer('our_red_zone_att');
-            $table->integer('our_red_zone_fg');
-            $table->integer('our_red_zone_td');
+            $table->integer('our_red_zone_fgs');
+            $table->integer('our_red_zone_tds');
 
             $table->integer('our_fumbles_lost');
 
@@ -48,46 +51,47 @@ return new class extends Migration
             $table->integer('our_top_sec');
 
             // Opponent stats
-            $table->integer('opponent_score_q1');
-            $table->integer('opponent_score_q2');
-            $table->integer('opponent_score_q3');
-            $table->integer('opponent_score_q4');
+            $table->integer('opp_score_q1');
+            $table->integer('opp_score_q2');
+            $table->integer('opp_score_q3');
+            $table->integer('opp_score_q4');
+            $table->integer('opp_score_ot');
 
-            $table->integer('opponent_first_downs');
+            $table->integer('opp_first_downs');
 
-            $table->integer('opponent_rush_att');
-            $table->integer('opponent_rush_yds');
-            $table->integer('opponent_rush_tds');
+            $table->integer('opp_rush_att');
+            $table->integer('opp_rush_yds');
+            $table->integer('opp_rush_tds');
 
-            $table->integer('opponent_pass_comp');
-            $table->integer('opponent_pass_att');
-            $table->integer('opponent_pass_yds');
-            $table->integer('opponent_pass_tds');
+            $table->integer('opp_pass_comp');
+            $table->integer('opp_pass_att');
+            $table->integer('opp_pass_yds');
+            $table->integer('opp_pass_tds');
 
-            $table->integer('opponent_third_down_att');
-            $table->integer('opponent_third_down_conv');
-            $table->integer('opponent_fourth_down_att');
-            $table->integer('opponent_fourth_down_conv');
-            $table->integer('opponent_two_point_att');
-            $table->integer('opponent_two_point_conv');
-            $table->integer('opponent_red_zone_att');
-            $table->integer('opponent_red_zone_fg');
-            $table->integer('opponent_red_zone_td');
+            $table->integer('opp_third_down_att');
+            $table->integer('opp_third_down_conv');
+            $table->integer('opp_fourth_down_att');
+            $table->integer('opp_fourth_down_conv');
+            $table->integer('opp_two_point_att');
+            $table->integer('opp_two_point_conv');
+            $table->integer('opp_red_zone_att');
+            $table->integer('opp_red_zone_fgs');
+            $table->integer('opp_red_zone_tds');
 
-            $table->integer('opponent_fumbles_lost');
-            $table->integer('opponent_ints');
+            $table->integer('opp_fumbles_lost');
+            $table->integer('opp_ints');
 
-            $table->integer('opponent_punt_return_yds');
-            $table->integer('opponent_kick_return_yds');
+            $table->integer('opp_punt_return_yds');
+            $table->integer('opp_kick_return_yds');
 
-            $table->integer('opponent_punts');
-            $table->integer('opponent_punt_avg');
+            $table->integer('opp_punts');
+            $table->integer('opp_punt_avg');
 
-            $table->integer('opponent_penalties');
-            $table->integer('opponent_penalty_yds');
+            $table->integer('opp_penalties');
+            $table->integer('opp_penalty_yds');
 
-            $table->integer('opponent_top_min');
-            $table->integer('opponent_top_sec');
+            $table->integer('opp_top_min');
+            $table->integer('opp_top_sec');
 
             $table->timestamps();
         });

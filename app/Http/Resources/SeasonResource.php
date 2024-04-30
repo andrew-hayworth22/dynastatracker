@@ -15,6 +15,7 @@ class SeasonResource extends JsonResource
             'year' => $this->year,
             'team' => $this->whenLoaded('team', fn () => TeamResource::make($this->team)),
             'coach_type' => $this->coach_type,
+            'record' => $this->record,
         ];
     }
 }

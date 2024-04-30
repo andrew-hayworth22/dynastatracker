@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Game;
+use App\Models\Season;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -27,9 +28,9 @@ class GamePolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, Season $season): bool
     {
-        //
+        return $user->id === $season->dynasty->user_id;
     }
 
     /**

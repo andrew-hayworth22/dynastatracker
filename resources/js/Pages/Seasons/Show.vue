@@ -1,7 +1,9 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import PrimaryButtonLink from "@/Components/PrimaryButtonLink.vue";
 import DynastyHeader from "@/Components/DynastyHeader.vue";
+import EmptyState from "@/Components/EmptyState.vue";
+import PrimaryButtonLink from "@/Components/PrimaryButtonLink.vue";
+import Card from "@/Components/Card.vue";
 
 defineProps({
     dynasty: {
@@ -12,6 +14,10 @@ defineProps({
         type: Object,
         required: true,
     },
+    games: {
+        type: Array,
+        required: true,
+    }
 });
 </script>
 
@@ -19,12 +25,73 @@ defineProps({
     <AppLayout title="Dynasties">
         <DynastyHeader :dynasty="dynasty" />
 
-        <div class="grid grid-cols-[1fr_500px] gap-4">
-            <div class="bg-amber-500">
-                Left Column
+        <div class="grid xl:grid-cols-[1fr_500px] gap-4">
+            <div class="flex flex-col gap-4">
+                <Card>
+                    <template #title>
+                        {{ season.year }}
+                    </template>
+
+                    {{ season.coach_type + ' @ ' + season.team.college_abbreviation }}
+
+                </Card>
+
+                <Card :use-padding="false" class="overflow-hidden">
+                    <template #title>
+                        Schedule ({{ season.record }})
+                    </template>
+
+                    <template #actions>
+                        <PrimaryButtonLink :href="route('seasons.games.create', season.id)">
+                            Create Game
+                        </PrimaryButtonLink>
+                    </template>
+
+                    <template v-if="games.length > 0">
+                        <div class="flow-root">
+                            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                    <div class="overflow-hidden">
+                                        <table class="min-w-full">
+                                            <thead class="bg-gray-50 sr-only">
+                                                <tr>
+                                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Game</th>
+                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Opponent</th>
+                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Result</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-200 bg-white">
+                                            <tr v-for="game in games" :key="game.id">
+                                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                    {{ game.type === 'Regular Season' ? 'Week ' + game.week : game.type }}
+                                                </td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                    {{ (game.location === 'Away' ? '@ ' : '') + game.opp_team.college_abbreviation }}
+                                                </td>
+                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <span :class="{'text-green-500': game.our_score > game.opp_score, 'text-red-500': game.our_score <= game.opp_score}">
+                                            {{ (game.our_score > game.opp_score ? 'W' : 'L') + ' ' + game.our_score + '-' + game.opp_score }}
+                                        </span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <EmptyState v-else>
+                        <template #title>
+                            No games found
+                        </template>
+                    </EmptyState>
+                </Card>
             </div>
-            <div class="bg-pink-500">
-                Right Column
+            <div>
+                <PrimaryButtonLink :href="route('seasons.roster', season.id)">
+                    Roster
+                </PrimaryButtonLink>
             </div>
         </div>
     </AppLayout>

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Resources\DynastyResource;
+use App\Http\Resources\GameLogResource;
 use App\Http\Resources\SeasonResource;
+use App\Models\Game;
 use App\Models\Season;
 use App\Models\User;
 
@@ -44,4 +46,14 @@ it('returns the correct dynasty', function () {
     $this->actingAs($user)
         ->get(route('seasons.show', $season->id))
         ->assertHasResource('dynasty', DynastyResource::make($season->dynasty));
+});
+
+it('returns the correct games', function () {
+    $user = User::factory()->create();
+    $season = Season::factory()->recycle($user)->create();
+    Game::factory(5)->recycle($season)->create();
+
+    $this->actingAs($user)
+        ->get(route('seasons.show', $season->id))
+        ->assertHasResource('games', GameLogResource::collection($season->games()->with('opp_team')->orderBy('date')->get()));
 });

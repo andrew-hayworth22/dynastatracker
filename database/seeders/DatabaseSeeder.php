@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Conference;
 use App\Models\Division;
 use App\Models\Dynasty;
+use App\Models\Game;
 use App\Models\Player;
 use App\Models\Season;
 use App\Models\Team;
@@ -19,17 +20,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)
-            ->has(Dynasty::factory(2)
-                ->has(Conference::factory(2)))
-            ->create();
-
         User::factory()
             ->has(Dynasty::factory(4)
                 ->has(Conference::factory(3)
                     ->has(Division::factory(2)
                         ->has(Team::factory(5))))
-                ->has(Season::factory(5))
+                ->has(Season::factory(5)
+                    ->has(Game::factory(10)))
                 ->has(Player::factory(50)))
             ->create([
                 'name' => 'Andy Hayworth',

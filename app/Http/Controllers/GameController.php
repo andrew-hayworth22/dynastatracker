@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SeasonResource;
+use App\Http\Resources\TeamResource;
 use App\Models\Game;
+use App\Models\Season;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class GameController extends Controller
 {
@@ -18,9 +22,14 @@ class GameController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Season $season)
     {
-        //
+        Gate::authorize('create', [Game::class, $season]);
+
+        return inertia('Games/Create', [
+            'season' => SeasonResource::make($season->load(['dynasty', 'team'])),
+            'teams' => TeamResource::collection($season->dynasty->teams()->orderBy('college_abbreviation')->get()),
+        ]);
     }
 
     /**

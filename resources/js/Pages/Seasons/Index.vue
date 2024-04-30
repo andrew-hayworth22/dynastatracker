@@ -65,7 +65,7 @@ const closeSlideout = () => {
                 <ListItem v-for="season in seasons" :key="season.id" class="last-of-type:rounded-b-md">
                     <template #title>
                         <Link :href="route('seasons.show', season.id)">
-                            {{ season.year }}
+                            {{ season.year + ' (' + season.record + ')' }}
                         </Link>
                     </template>
                     <template #subtitle>

@@ -146,7 +146,7 @@ const show = ref(false)
         </ul>
         <EmptyState v-else>
             <template #title>
-                No Conferences
+                No conferences
             </template>
             <template #body>
                 Get started by creating a conference!

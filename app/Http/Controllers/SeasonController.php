@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\DynastyResource;
+use App\Http\Resources\GameLogResource;
 use App\Http\Resources\PlayerResource;
 use App\Http\Resources\SeasonResource;
 use App\Http\Resources\TeamResource;
@@ -23,7 +24,7 @@ class SeasonController extends Controller
 
         return inertia('Seasons/Index', [
             'dynasty' => fn () => DynastyResource::make($dynasty),
-            'seasons' => fn () => SeasonResource::collection($dynasty->seasons()->latest('year')->latest()->get()->load('team')),
+            'seasons' => fn () => SeasonResource::collection($dynasty->seasons()->latest('year')->latest()->get()->load(['team', 'games'])),
             'teams' => fn () => TeamResource::collection($dynasty->teams)
         ]);
     }
@@ -66,9 +67,12 @@ class SeasonController extends Controller
         $dynasty = $season->dynasty;
         unset($season->dynasty);
 
+        $games = $season->games()->with('opp_team')->orderBy('date')->get();
+
         return inertia('Seasons/Show', [
             'season' => fn () => SeasonResource::make($season->load('team')),
-            'dynasty' => fn () => DynastyResource::make($dynasty)
+            'dynasty' => fn () => DynastyResource::make($dynasty),
+            'games' => fn () => GameLogResource::collection($games)
         ]);
     }
 
@@ -106,7 +110,7 @@ class SeasonController extends Controller
         return inertia('Seasons/Roster', [
             'dynasty' => fn () => DynastyResource::make($season->dynasty),
             'season' => fn () => SeasonResource::make($season->load('team')),
-            'players' => fn () => PlayerResource::collection($season->players)
+            'players' => fn () => PlayerResource::collection($season->players),
         ]);
     }
 }
