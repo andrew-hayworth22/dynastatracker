@@ -4,12 +4,9 @@ import DynastyHeader from "@/Components/DynastyHeader.vue";
 import EmptyState from "@/Components/EmptyState.vue";
 import PrimaryButtonLink from "@/Components/PrimaryButtonLink.vue";
 import Card from "@/Components/Card.vue";
+import {Link} from "@inertiajs/vue3";
 
 defineProps({
-    dynasty: {
-        type: Object,
-        required: true,
-    },
     season: {
         type: Object,
         required: true,
@@ -22,8 +19,8 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Dynasties">
-        <DynastyHeader :dynasty="dynasty" />
+    <AppLayout title="Dynasties" :selected_dynasty_id="season.dynasty.id">
+        <DynastyHeader :dynasty="season.dynasty" />
 
         <div class="grid xl:grid-cols-[1fr_500px] gap-4">
             <div class="flex flex-col gap-4">
@@ -63,7 +60,10 @@ defineProps({
                                             <tbody class="divide-y divide-gray-200 bg-white">
                                             <tr v-for="game in games" :key="game.id">
                                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                    {{ game.type === 'Regular Season' ? 'Week ' + game.week : game.type }}
+                                                    <Link :href="route('games.show', game.id)">
+                                                        {{ game.type === 'Regular Season' ? 'Week ' + game.week : game.type }}
+                                                    </Link>
+
                                                 </td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                     {{ (game.location === 'Away' ? '@ ' : '') + game.opp_team.college_abbreviation }}

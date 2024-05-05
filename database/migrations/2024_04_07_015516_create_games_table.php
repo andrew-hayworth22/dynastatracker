@@ -32,17 +32,34 @@ return new class extends Migration
 
             $table->integer('our_first_downs');
 
+            $table->integer('our_rush_att');
+            $table->integer('our_rush_yds');
+            $table->integer('our_rush_tds');
+
+            $table->integer('our_pass_comp');
+            $table->integer('our_pass_att');
+            $table->integer('our_pass_yds');
+            $table->integer('our_pass_tds');
+
             $table->integer('our_third_down_att');
             $table->integer('our_third_down_conv');
             $table->integer('our_fourth_down_att');
             $table->integer('our_fourth_down_conv');
             $table->integer('our_two_point_att');
             $table->integer('our_two_point_conv');
+
             $table->integer('our_red_zone_att');
             $table->integer('our_red_zone_fgs');
             $table->integer('our_red_zone_tds');
 
             $table->integer('our_fumbles_lost');
+            $table->integer('our_ints');
+
+            $table->integer('our_punt_return_yds');
+            $table->integer('our_kick_return_yds');
+
+            $table->integer('our_punts');
+            $table->decimal('our_punt_avg');
 
             $table->integer('our_penalties');
             $table->integer('our_penalty_yds');
@@ -74,6 +91,7 @@ return new class extends Migration
             $table->integer('opp_fourth_down_conv');
             $table->integer('opp_two_point_att');
             $table->integer('opp_two_point_conv');
+
             $table->integer('opp_red_zone_att');
             $table->integer('opp_red_zone_fgs');
             $table->integer('opp_red_zone_tds');
@@ -85,7 +103,7 @@ return new class extends Migration
             $table->integer('opp_kick_return_yds');
 
             $table->integer('opp_punts');
-            $table->integer('opp_punt_avg');
+            $table->decimal('opp_punt_avg');
 
             $table->integer('opp_penalties');
             $table->integer('opp_penalty_yds');

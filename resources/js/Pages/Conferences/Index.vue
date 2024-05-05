@@ -96,7 +96,7 @@ const show = ref(false)
 </script>
 
 <template>
-    <AppLayout :title="`${dynasty.name} Teams`">
+    <AppLayout :title="`${dynasty.name} Teams`" :selected_dynasty_id="dynasty.id">
         <DynastyHeader :dynasty="dynasty" />
 
         <ul v-if="conferences.length > 0" class="flex flex-col gap-6">

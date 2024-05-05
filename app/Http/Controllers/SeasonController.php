@@ -64,14 +64,11 @@ class SeasonController extends Controller
     public function show(Season $season)
     {
         Gate::authorize('view', $season);
-        $dynasty = $season->dynasty;
-        unset($season->dynasty);
 
         $games = $season->games()->with('opp_team')->orderBy('date')->get();
 
         return inertia('Seasons/Show', [
             'season' => fn () => SeasonResource::make($season->load('team')),
-            'dynasty' => fn () => DynastyResource::make($dynasty),
             'games' => fn () => GameLogResource::collection($games)
         ]);
     }

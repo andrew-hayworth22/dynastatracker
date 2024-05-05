@@ -31,7 +31,7 @@ it('returns the correct season', function () {
 
     $this->actingAs($season->dynasty->user)
         ->get(route('seasons.games.create', $season))
-        ->assertHasResource('season', SeasonResource::make($season->load('dynasty')));
+        ->assertHasResource('season', SeasonResource::make($season->load(['dynasty', 'team'])));
 });
 
 it('returns the correct teams', function () {

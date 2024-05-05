@@ -17,6 +17,11 @@ class Game extends Model
         return $this->belongsTo(Team::class, 'opp_team_id');
     }
 
+    public function season() : BelongsTo
+    {
+        return $this->belongsTo(Season::class);
+    }
+
     public function getOurScoreAttribute()
     {
         return $this->our_score_q1 + $this->our_score_q2 + $this->our_score_q3 + $this->our_score_q4 + $this->our_score_ot;

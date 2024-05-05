@@ -15,10 +15,6 @@ import TextInput from "@/Components/TextInput.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 const props = defineProps({
-    dynasty: {
-        type: Object,
-        required: true,
-    },
     season: {
         type: Object,
         required: true,
@@ -27,8 +23,8 @@ const props = defineProps({
 </script>
 
 <template>
-    <AppLayout :title="`${dynasty.name} Seasons`">
-        <DynastyHeader :dynasty="dynasty" />
+    <AppLayout :title="`${season.dynasty.name} Seasons`" :selected_dynasty_id="season.dynasty.id">
+        <DynastyHeader :dynasty="season.dynasty" />
         {{ season.name }}
     </AppLayout>
 </template>

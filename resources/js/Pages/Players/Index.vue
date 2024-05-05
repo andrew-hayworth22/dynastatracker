@@ -81,8 +81,8 @@ const savePlayer = function() {
 </script>
 
 <template>
-    <AppLayout :title="`${dynasty.name} Players`">
-        <DynastyHeader :dynasty="dynasty" />
+    <AppLayout :title="`${dynasty.name} Players`" :selected_dynasty_id="dynasty.id">
+        <DynastyHeader :dynasty="dynasty"/>
 
         <div class="flex mb-4 justify-between">
             <FilterBar field="is_active"

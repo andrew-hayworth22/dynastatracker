@@ -4,7 +4,7 @@ use App\Http\Resources\DynastyResource;
 use App\Models\Dynasty;
 use App\Models\User;
 
-it('requires authorization', function () {
+it('requires authentication', function () {
     $dynasty = Dynasty::factory()->create();
 
     $this->get(route('dynasties.show', $dynasty->id))

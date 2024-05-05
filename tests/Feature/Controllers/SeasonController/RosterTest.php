@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Resources\SeasonResource;
 use App\Models\Season;
 use App\Models\User;
 
@@ -20,4 +21,13 @@ it('returns the correct component', function () {
     $this->actingAs($season->dynasty->user)
         ->get(route('seasons.roster', $season))
         ->assertComponent('Seasons/Roster');
+});
+
+it('returns the correct season', function () {
+    $user = User::factory()->create();
+    $season = Season::factory()->recycle($user)->create();
+
+    $this->actingAs($user)
+        ->get(route('seasons.roster', $season->id))
+        ->assertHasResource('season', SeasonResource::make($season->load(['team', 'dynasty'])));
 });

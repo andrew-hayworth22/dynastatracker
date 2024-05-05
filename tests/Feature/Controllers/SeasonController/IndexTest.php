@@ -45,7 +45,7 @@ it('returns the correct dynasty', function () {
 
 it('returns the correct seasons', function () {
     $dynasty = Dynasty::factory()->has(Season::factory(3))->create();
-    $seasons = SeasonResource::collection($dynasty->seasons->sort(fn ($a, $b) => $b->year <=> $a->year)->load('team'));
+    $seasons = SeasonResource::collection($dynasty->seasons->sort(fn ($a, $b) => $b->year <=> $a->year)->load('team', 'games'));
 
     $this->actingAs($dynasty->user)
         ->get(route('dynasties.seasons.index', $dynasty))

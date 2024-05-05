@@ -36,16 +36,7 @@ it('returns the correct season', function () {
 
     $this->actingAs($user)
         ->get(route('seasons.show', $season->id))
-        ->assertHasResource('season', SeasonResource::make($season->load('team')));
-});
-
-it('returns the correct dynasty', function () {
-    $user = User::factory()->create();
-    $season = Season::factory()->recycle($user)->create();
-
-    $this->actingAs($user)
-        ->get(route('seasons.show', $season->id))
-        ->assertHasResource('dynasty', DynastyResource::make($season->dynasty));
+        ->assertHasResource('season', SeasonResource::make($season->load(['team', 'dynasty'])));
 });
 
 it('returns the correct games', function () {

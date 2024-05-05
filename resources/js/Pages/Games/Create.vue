@@ -31,7 +31,7 @@ const form = useForm({
     'opp_team_id': null,
     'location': null,
     'type': null,
-    'week': null,
+    'week': 0,
     'coverage': null,
     'date': null,
 
@@ -40,57 +40,69 @@ const form = useForm({
     'our_score_q3': 0,
     'our_score_q4': 0,
     'our_score_ot': 0,
-    'our_first_downs': null,
-    'our_third_down_att': null,
-    'our_third_down_conv': null,
-    'our_fourth_down_att': null,
-    'our_fourth_down_conv': null,
-    'our_two_point_att': null,
-    'our_two_point_conv': null,
-    'our_red_zone_att': null,
-    'our_red_zone_fgs': null,
-    'our_red_zone_tds': null,
-    'our_fumbles_lost': null,
-    'our_penalties': null,
-    'our_penalty_yds': null,
-    'our_top_min': null,
-    'our_top_sec': null,
+    'our_first_downs': 0,
+    'our_rush_att': 0,
+    'our_rush_yds': 0,
+    'our_rush_tds': 0,
+    'our_pass_comp': 0,
+    'our_pass_att': 0,
+    'our_pass_yds': 0,
+    'our_pass_tds': 0,
+    'our_third_down_att': 0,
+    'our_third_down_conv': 0,
+    'our_fourth_down_att': 0,
+    'our_fourth_down_conv': 0,
+    'our_two_point_att': 0,
+    'our_two_point_conv': 0,
+    'our_red_zone_att': 0,
+    'our_red_zone_fgs': 0,
+    'our_red_zone_tds': 0,
+    'our_fumbles_lost': 0,
+    'our_ints': 0,
+    'our_punt_return_yds': 0,
+    'our_kick_return_yds': 0,
+    'our_punts': 0,
+    'our_punt_avg': 0,
+    'our_penalties': 0,
+    'our_penalty_yds': 0,
+    'our_top_min': 0,
+    'our_top_sec': 0,
 
     'opp_score_q1': 0,
     'opp_score_q2': 0,
     'opp_score_q3': 0,
     'opp_score_q4': 0,
     'opp_score_ot': 0,
-    'opp_first_downs': null,
-    'opp_rush_att': null,
-    'opp_rush_yds': null,
-    'opp_rush_tds': null,
-    'opp_pass_comp': null,
-    'opp_pass_att': null,
-    'opp_pass_yds': null,
-    'opp_pass_tds': null,
-    'opp_third_down_att': null,
-    'opp_third_down_conv': null,
-    'opp_fourth_down_att': null,
-    'opp_fourth_down_conv': null,
-    'opp_two_point_att': null,
-    'opp_two_point_conv': null,
-    'opp_red_zone_att': null,
-    'opp_red_zone_fgs': null,
-    'opp_red_zone_tds': null,
-    'opp_fumbles_lost': null,
-    'opp_ints': null,
-    'opp_punt_return_yds': null,
-    'opp_kick_return_yds': null,
-    'opp_punts': null,
-    'opp_punt_avg': null,
-    'opp_penalties': null,
-    'opp_penalty_yds': null,
-    'opp_top_min': null,
-    'opp_top_sec': null,
+    'opp_first_downs': 0,
+    'opp_rush_att': 0,
+    'opp_rush_yds': 0,
+    'opp_rush_tds': 0,
+    'opp_pass_comp': 0,
+    'opp_pass_att': 0,
+    'opp_pass_yds': 0,
+    'opp_pass_tds': 0,
+    'opp_third_down_att': 0,
+    'opp_third_down_conv': 0,
+    'opp_fourth_down_att': 0,
+    'opp_fourth_down_conv': 0,
+    'opp_two_point_att': 0,
+    'opp_two_point_conv': 0,
+    'opp_red_zone_att': 0,
+    'opp_red_zone_fgs': 0,
+    'opp_red_zone_tds': 0,
+    'opp_fumbles_lost': 0,
+    'opp_ints': 0,
+    'opp_punt_return_yds': 0,
+    'opp_kick_return_yds': 0,
+    'opp_punts': 0,
+    'opp_punt_avg': 0,
+    'opp_penalties': 0,
+    'opp_penalty_yds': 0,
+    'opp_top_min': 0,
+    'opp_top_sec': 0,
 });
 const createGame = () => {
-    // form.post(route('games.store', {season: props.season.id}));
+    form.post(route('seasons.games.store', {season: props.season.id}));
 };
 
 const opposingTeamName = ref('Opposing Team');
@@ -108,7 +120,7 @@ const updateOpposingTeamName = () => {
 </script>
 
 <template>
-    <AppLayout :title="`${season.dynasty.name} | Create Game`">
+    <AppLayout :title="`${season.dynasty.name} | Create Game`" :selected_dynasty_id="season.dynasty.id">
         <DynastyHeader :dynasty="season.dynasty" />
 
         <form @submit.prevent="createGame" class="flex flex-col gap-4">
@@ -117,117 +129,122 @@ const updateOpposingTeamName = () => {
                     Game Information
                 </template>
 
-                <div class="grid sm:grid-cols-2 gap-x-4 gap-y-6">
-                    <div>
-                        <InputLabel for="opp_team">
-                            Opposing Team
-                        </InputLabel>
-                        <InputSelect
-                            id="opp_team"
-                            v-model="form.opp_team_id"
-                            class="mt-1 block w-full"
-                            @change="updateOpposingTeamName"
-                        >
-                            <option :value="null" disabled>
-                                Select a team...
-                            </option>
-                            <option v-for="team in teams" :key="team.id" :value="team.id">
-                                {{ team.college_abbreviation }}
-                            </option>
-                        </InputSelect>
-                        <InputError :message="form.errors.opp_team_id" class="mt-2" />
+                <div class="sm:flex gap-4">
+                    <div class="flex-1 flex flex-col gap-6">
+                        <div>
+                            <InputLabel for="opp_team">
+                                Opposing Team
+                            </InputLabel>
+                            <InputSelect
+                                id="opp_team"
+                                v-model="form.opp_team_id"
+                                class="mt-1 block w-full"
+                                @change="updateOpposingTeamName"
+                            >
+                                <option :value="null" disabled>
+                                    Select a team...
+                                </option>
+                                <option v-for="team in teams" :key="team.id" :value="team.id">
+                                    {{ team.college_abbreviation }}
+                                </option>
+                            </InputSelect>
+                            <InputError :message="form.errors.opp_team_id" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <InputLabel for="type">
+                                Type
+                            </InputLabel>
+                            <InputSelect
+                                id="type"
+                                v-model="form.type"
+                                class="mt-1 block w-full"
+                            >
+                                <option :value="null" disabled>
+                                    Select a type...
+                                </option>
+                                <option value="Regular Season"> Regular Season </option>
+                                <option value="Conference Championship"> Conference Championship </option>
+                                <option value="Bowl Game"> Bowl Game </option>
+                                <option value="National Octafinals"> National Octafinals </option>
+                                <option value="National Quarterfinals"> National Quarterfinals </option>
+                                <option value="National Semifinals"> National Semifinals </option>
+                                <option value="National Championship"> National Championship </option>
+                            </InputSelect>
+                            <InputError :message="form.errors.type" class="mt-2" />
+                        </div>
+
+                        <div v-if="form.type === 'Regular Season'">
+                            <InputLabel for="week">
+                                Week
+                            </InputLabel>
+                            <TextInput
+                                id="week"
+                                v-model="form.week"
+                                type="number"
+                                class="mt-1 block w-full"
+                                min="1"
+                                max="12"
+                                :has-errors="form.errors.week !== undefined"
+                            />
+                            <InputError :message="form.errors.week" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <InputLabel for="location">
+                                Location
+                            </InputLabel>
+                            <InputSelect
+                                id="location"
+                                v-model="form.location"
+                                class="mt-1 block w-full"
+                            >
+                                <option :value="null" disabled>
+                                    Select a location...
+                                </option>
+                                <option value="Home"> Home </option>
+                                <option value="Away"> Away </option>
+                                <option value="Neutral"> Neutral </option>
+                            </InputSelect>
+                            <InputError :message="form.errors.location" class="mt-2" />
+                        </div>
                     </div>
 
-                    <div>
-                        <InputLabel for="location">
-                            Location
-                        </InputLabel>
-                        <InputSelect
-                            id="location"
-                            v-model="form.location"
-                            class="mt-1 block w-full"
-                        >
-                            <option :value="null" disabled>
-                                Select a location...
-                            </option>
-                            <option value="Home"> Home </option>
-                            <option value="Away"> Away </option>
-                            <option value="Neutral"> Neutral </option>
-                        </InputSelect>
-                        <InputError :message="form.errors.location" class="mt-2" />
+                    <div class="flex-1 flex flex-col gap-6">
+                        <div>
+                            <InputLabel for="coverage">
+                                Coverage
+                            </InputLabel>
+                            <InputSelect
+                                id="coverage"
+                                v-model="form.coverage"
+                                class="mt-1 block w-full"
+                            >
+                                <option :value="null" disabled>
+                                    Select a coverage...
+                                </option>
+                                <option value="None"> None </option>
+                                <option value="Regional"> Regional </option>
+                                <option value="National"> National </option>
+                            </InputSelect>
+                            <InputError :message="form.errors.coverage" class="mt-2" />
+                        </div>
+
+                        <div>
+                            <InputLabel for="date">
+                                Date
+                            </InputLabel>
+                            <TextInput
+                                id="date"
+                                v-model="form.date"
+                                type="datetime-local"
+                                class="mt-1 block w-full"
+                                :has-errors="form.errors.date !== undefined"
+                            />
+                            <InputError :message="form.errors.date" class="mt-2" />
+                        </div>
                     </div>
 
-                    <div>
-                        <InputLabel for="type">
-                            Type
-                        </InputLabel>
-                        <InputSelect
-                            id="type"
-                            v-model="form.type"
-                            class="mt-1 block w-full"
-                        >
-                            <option :value="null" disabled>
-                                Select a type...
-                            </option>
-                            <option value="Regular Season"> Regular Season </option>
-                            <option value="Conference Championship"> Conference Championship </option>
-                            <option value="Bowl Game"> Bowl Game </option>
-                            <option value="National Octafinals"> National Octafinals </option>
-                            <option value="National Quarterfinals"> National Quarterfinals </option>
-                            <option value="National Semifinals"> National Semifinals </option>
-                            <option value="National Championship"> National Championship </option>
-                        </InputSelect>
-                        <InputError :message="form.errors.type" class="mt-2" />
-                    </div>
-
-                    <div v-if="form.type === 'Regular Season'">
-                        <InputLabel for="week">
-                            Week
-                        </InputLabel>
-                        <TextInput
-                            id="week"
-                            v-model="form.week"
-                            type="number"
-                            class="mt-1 block w-full"
-                            min="1"
-                            max="12"
-                            :has-errors="form.errors.week !== undefined"
-                        />
-                        <InputError :message="form.errors.week" class="mt-2" />
-                    </div>
-
-                    <div>
-                        <InputLabel for="coverage">
-                            Coverage
-                        </InputLabel>
-                        <InputSelect
-                            id="coverage"
-                            v-model="form.coverage"
-                            class="mt-1 block w-full"
-                        >
-                            <option :value="null" disabled>
-                                Select a coverage...
-                            </option>
-                            <option value="None"> None </option>
-                            <option value="Regional"> Regional </option>
-                            <option value="National"> National </option>
-                        </InputSelect>
-                        <InputError :message="form.errors.coverage" class="mt-2" />
-                    </div>
-
-                    <div>
-                        <InputLabel for="date">
-                            Date
-                        </InputLabel>
-                        <TextInput
-                            id="date"
-                            v-model="form.date"
-                            type="datetime-local"
-                            class="mt-1 block w-full"
-                            :has-errors="form.errors.date !== undefined"
-                        />
-                        <InputError :message="form.errors.date" class="mt-2" />
-                    </div>
                 </div>
             </Card>
 
@@ -391,6 +408,115 @@ const updateOpposingTeamName = () => {
                             <InputError :message="form.errors.our_first_downs" class="mt-2" />
                         </div>
 
+                        <div class="flex flex-col sm:flex-row gap-6 sm:gap-4">
+                            <div class="flex-1">
+                                <InputLabel for="our_rush_att">
+                                    Rush Attempts
+                                </InputLabel>
+                                <TextInput
+                                    id="our_rush_att"
+                                    v-model="form.our_rush_att"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_rush_att !== undefined"
+                                />
+                                <InputError :message="form.errors.our_rush_att" class="mt-2" />
+                            </div>
+
+                            <div class="flex-1">
+                                <InputLabel for="our_rush_yds">
+                                    Rush Yards
+                                </InputLabel>
+                                <TextInput
+                                    id="our_rush_yds"
+                                    v-model="form.our_rush_yds"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_rush_yds !== undefined"
+                                />
+                                <InputError :message="form.errors.our_rush_yds" class="mt-2" />
+                            </div>
+
+                            <div class="flex-1">
+                                <InputLabel for="our_rush_tds">
+                                    Rushing Touchdowns
+                                </InputLabel>
+                                <TextInput
+                                    id="our_rush_tds"
+                                    v-model="form.our_rush_tds"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_rush_tds !== undefined"
+                                />
+                                <InputError :message="form.errors.our_rush_tds" class="mt-2" />
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-6 sm:gap-4">
+                            <div class="flex-1">
+                                <InputLabel for="our_pass_comp">
+                                    Pass Completions
+                                </InputLabel>
+                                <TextInput
+                                    id="our_pass_comp"
+                                    v-model="form.our_pass_comp"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_pass_comp !== undefined"
+                                />
+                                <InputError :message="form.errors.our_pass_comp" class="mt-2" />
+                            </div>
+
+                            <div class="flex-1">
+                                <InputLabel for="our_pass_att">
+                                    Pass Attempts
+                                </InputLabel>
+                                <TextInput
+                                    id="our_pass_att"
+                                    v-model="form.our_pass_att"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_pass_att !== undefined"
+                                />
+                                <InputError :message="form.errors.our_pass_att" class="mt-2" />
+                            </div>
+
+                            <div class="flex-1">
+                                <InputLabel for="our_pass_yds">
+                                    Passing Yards
+                                </InputLabel>
+                                <TextInput
+                                    id="our_pass_yds"
+                                    v-model="form.our_pass_yds"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_pass_yds !== undefined"
+                                />
+                                <InputError :message="form.errors.our_pass_yds" class="mt-2" />
+                            </div>
+
+                            <div class="flex-1">
+                                <InputLabel for="our_pass_tds">
+                                    Passing Touchdowns
+                                </InputLabel>
+                                <TextInput
+                                    id="our_pass_tds"
+                                    v-model="form.our_pass_tds"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_pass_tds !== undefined"
+                                />
+                                <InputError :message="form.errors.our_pass_tds" class="mt-2" />
+                            </div>
+                        </div>
+
                         <div class="flex gap-4">
                             <div class="flex-1">
                                 <InputLabel for="our_third_down_conv">
@@ -534,19 +660,99 @@ const updateOpposingTeamName = () => {
                             </div>
                         </div>
 
-                        <div>
-                            <InputLabel for="our_fumbles_lost">
-                                Fumbles Lost
-                            </InputLabel>
-                            <TextInput
-                                id="our_fumbles_lost"
-                                v-model="form.our_fumbles_lost"
-                                type="number"
-                                class="mt-1 block w-full"
-                                min="0"
-                                :has-errors="form.errors.our_fumbles_lost !== undefined"
-                            />
-                            <InputError :message="form.errors.our_fumbles_lost" class="mt-2" />
+                        <div class="flex gap-4">
+                            <div class="flex-1">
+                                <InputLabel for="our_fumbles_lost">
+                                    Fumbles Lost
+                                </InputLabel>
+                                <TextInput
+                                    id="our_fumbles_lost"
+                                    v-model="form.our_fumbles_lost"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_fumbles_lost !== undefined"
+                                />
+                                <InputError :message="form.errors.our_fumbles_lost" class="mt-2" />
+                            </div>
+
+                            <div class="flex-1">
+                                <InputLabel for="our_ints">
+                                    Interceptions
+                                </InputLabel>
+                                <TextInput
+                                    id="our_ints"
+                                    v-model="form.our_ints"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_ints !== undefined"
+                                />
+                                <InputError :message="form.errors.our_ints" class="mt-2" />
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="flex-1">
+                                <InputLabel for="our_punt_return_yds">
+                                    Punt Return Yards
+                                </InputLabel>
+                                <TextInput
+                                    id="our_punt_return_yds"
+                                    v-model="form.our_punt_return_yds"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_punt_return_yds !== undefined"
+                                />
+                                <InputError :message="form.errors.our_punt_return_yds" class="mt-2" />
+                            </div>
+                            <div class="flex-1">
+                                <InputLabel for="our_kick_return_yds">
+                                    Kick Return Yards
+                                </InputLabel>
+                                <TextInput
+                                    id="our_kick_return_yds"
+                                    v-model="form.our_kick_return_yds"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_kick_return_yds !== undefined"
+                                />
+                                <InputError :message="form.errors.our_kick_return_yds" class="mt-2" />
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="flex-1">
+                                <InputLabel for="our_punts">
+                                    Punts
+                                </InputLabel>
+                                <TextInput
+                                    id="our_punts"
+                                    v-model="form.our_punts"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_punts !== undefined"
+                                />
+                                <InputError :message="form.errors.our_punts" class="mt-2" />
+                            </div>
+                            <div class="flex-1">
+                                <InputLabel for="our_punt_avg">
+                                    Average Punt Yards
+                                </InputLabel>
+                                <TextInput
+                                    id="our_punt_avg"
+                                    v-model="form.our_punt_avg"
+                                    type="number"
+                                    step="0.01"
+                                    class="mt-1 block w-full"
+                                    min="0"
+                                    :has-errors="form.errors.our_punt_avg !== undefined"
+                                />
+                                <InputError :message="form.errors.our_punt_avg" class="mt-2" />
+                            </div>
                         </div>
 
                         <div class="flex gap-4">
@@ -973,6 +1179,7 @@ const updateOpposingTeamName = () => {
                                     id="opp_punt_avg"
                                     v-model="form.opp_punt_avg"
                                     type="number"
+                                    step="0.01"
                                     class="mt-1 block w-full"
                                     min="0"
                                     :has-errors="form.errors.opp_punt_avg !== undefined"
@@ -1049,7 +1256,7 @@ const updateOpposingTeamName = () => {
                 </Card>
             </div>
             <Card>
-                <PrimaryButton>
+                <PrimaryButton :disabled="form.processing">
                     Save
                 </PrimaryButton>
             </Card>

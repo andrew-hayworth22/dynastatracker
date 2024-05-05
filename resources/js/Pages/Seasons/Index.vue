@@ -57,7 +57,7 @@ const closeSlideout = () => {
 </script>
 
 <template>
-    <AppLayout :title="`${dynasty.name} Seasons`">
+    <AppLayout :title="`${dynasty.name} Seasons`" :selected_dynasty_id="dynasty.id">
         <DynastyHeader :dynasty="dynasty" />
 
         <template v-if="seasons.length > 0">

@@ -23,7 +23,11 @@ defineProps({
     title: {
         type: String,
         required: true,
-    }
+    },
+    selected_dynasty_id: {
+        type: Number,
+        required: false,
+    },
 })
 
 const navigation = [
@@ -92,7 +96,7 @@ const logout = () => {
                                             <ul role="list" class="-mx-2 mt-2 space-y-1">
                                                 <li v-for="dynasty in $page.props.navigation.dynasties" :key="dynasty.id">
                                                     <Link :href="route('dynasties.show', dynasty.id)"
-                                                          :class="[route().current('dynasties.show', dynasty.id) ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                                                          :class="[selected_dynasty_id === dynasty.id ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
                                                         <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{ dynasty.name[0] }}</span>
                                                         <span class="truncate">{{ dynasty.name }}</span>
                                                     </Link>
@@ -133,7 +137,7 @@ const logout = () => {
                             <ul role="list" class="-mx-2 mt-2 space-y-1">
                                 <li v-for="dynasty in $page.props.navigation.dynasties" :key="dynasty.id">
                                     <Link :href="route('dynasties.show', dynasty.id)"
-                                          :class="[route().current('dynasties.show', dynasty.id) ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                                          :class="[selected_dynasty_id === dynasty.id ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
                                         <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">{{ dynasty.name[0] }}</span>
                                         <span class="truncate">{{ dynasty.name }}</span>
                                     </Link>

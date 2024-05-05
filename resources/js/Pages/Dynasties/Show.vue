@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-    <AppLayout title="Dynasties">
+    <AppLayout title="Dynasties" :selected_dynasty_id="dynasty.id">
         <DynastyHeader :dynasty="dynasty" />
 
     </AppLayout>
