@@ -114,6 +114,8 @@ class GameController extends Controller
         ]);
 
         $season->games()->create($data);
+
+        return redirect()->route('seasons.show', $season);
     }
 
     /**

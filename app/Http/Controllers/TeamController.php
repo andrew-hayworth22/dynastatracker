@@ -34,7 +34,7 @@ class TeamController extends Controller
 
         $data = $request->validate([
             'college_name' => ['required', 'string', 'max:255'],
-            'college_abbreviation' => ['required', 'string', 'max:10'],
+            'college_abbreviation' => ['required', 'string', 'max:100'],
             'mascot' => ['required', 'string', 'max:255'],
             'location' => ['string', 'max:255'],
         ]);
