@@ -38,7 +38,7 @@ class GamePolicy
      */
     public function update(User $user, Game $game): bool
     {
-        //
+        return $user->id === $game->season->dynasty->user_id;
     }
 
     /**

@@ -7,7 +7,7 @@ import {Link, useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import PrimaryButtonLink from "@/Components/PrimaryButtonLink.vue";
-import Slideout from "@/Components/Slideout.vue";
+import Slideout from "@/Components/Sidebar.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputSelect from "@/Components/InputSelect.vue";
 import InputError from "@/Components/InputError.vue";

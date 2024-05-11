@@ -4,7 +4,7 @@ import DynastyHeader from "@/Components/DynastyHeader.vue";
 import EmptyState from "@/Components/EmptyState.vue";
 import {useForm} from "@inertiajs/vue3";
 import Pagination from "@/Components/Pagination.vue";
-import Slideout from "@/Components/Slideout.vue";
+import Slideout from "@/Components/Sidebar.vue";
 import InputError from "@/Components/InputError.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -13,6 +13,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import FilterBar from "@/Components/FilterBar.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import {ref} from "vue";
+import BreadcrumbsItem from "@/Components/BreadcrumbsItem.vue";
 
 const props = defineProps({
     dynasty: {
@@ -82,7 +83,13 @@ const savePlayer = function() {
 
 <template>
     <AppLayout :title="`${dynasty.name} Players`" :selected_dynasty_id="dynasty.id">
-        <DynastyHeader :dynasty="dynasty"/>
+        <DynastyHeader :dynasty="dynasty">
+            <template #breadcrumbs>
+                <BreadcrumbsItem :route="route('dynasties.players.index', dynasty.id)" :current="true">
+                    Players
+                </BreadcrumbsItem>
+            </template>
+        </DynastyHeader>
 
         <div class="flex mb-4 justify-between">
             <FilterBar field="is_active"

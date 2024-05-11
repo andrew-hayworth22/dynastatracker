@@ -5,6 +5,7 @@ import EmptyState from "@/Components/EmptyState.vue";
 import PrimaryButtonLink from "@/Components/PrimaryButtonLink.vue";
 import Card from "@/Components/Card.vue";
 import {Link} from "@inertiajs/vue3";
+import BreadcrumbsItem from "@/Components/BreadcrumbsItem.vue";
 
 defineProps({
     season: {
@@ -20,7 +21,16 @@ defineProps({
 
 <template>
     <AppLayout title="Dynasties" :selected_dynasty_id="season.dynasty.id">
-        <DynastyHeader :dynasty="season.dynasty" />
+        <DynastyHeader :dynasty="season.dynasty">
+            <template #breadcrumbs>
+                <BreadcrumbsItem :route="route('dynasties.seasons.index', season.dynasty.id)">
+                    Seasons
+                </BreadcrumbsItem>
+                <BreadcrumbsItem :route="route('seasons.show', season.id)" :current="true">
+                    {{ season.year }}
+                </BreadcrumbsItem>
+            </template>
+        </DynastyHeader>
 
         <div class="grid xl:grid-cols-[1fr_500px] gap-4">
             <div class="flex flex-col gap-4">
@@ -58,22 +68,21 @@ defineProps({
                                                 </tr>
                                             </thead>
                                             <tbody class="divide-y divide-gray-200 bg-white">
-                                            <tr v-for="game in games" :key="game.id">
-                                                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                    <Link :href="route('games.show', game.id)">
-                                                        {{ game.type === 'Regular Season' ? 'Week ' + game.week : game.type }}
-                                                    </Link>
-
-                                                </td>
-                                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                    {{ (game.location === 'Away' ? '@ ' : '') + game.opp_team.college_abbreviation }}
-                                                </td>
-                                                <td class="whitespace-nowrap pl-3 sm:pr-6 pr-4 py-4 text-sm text-gray-500 text-right">
-                                                    <span :class="{'text-green-500': game.our_score > game.opp_score, 'text-red-500': game.our_score <= game.opp_score}">
-                                                        {{ (game.our_score > game.opp_score ? 'W' : 'L') + ' ' + game.our_score + '-' + game.opp_score }}
-                                                    </span>
-                                                </td>
-                                            </tr>
+                                                <tr v-for="game in games" :key="game.id">
+                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                        <Link :href="route('games.show', game.id)">
+                                                            {{ game.type === 'Regular Season' ? 'Week ' + game.week : game.type }}
+                                                        </Link>
+                                                    </td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                        {{ (game.location === 'Away' ? '@ ' : '') + game.opp_team.college_abbreviation }}
+                                                    </td>
+                                                    <td class="whitespace-nowrap pl-3 sm:pr-6 pr-4 py-4 text-sm text-gray-500 text-right">
+                                                        <span :class="{'text-green-500': game.our_score > game.opp_score, 'text-red-500': game.our_score <= game.opp_score}">
+                                                            {{ (game.our_score > game.opp_score ? 'W' : 'L') + ' ' + game.our_score + '-' + game.opp_score }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

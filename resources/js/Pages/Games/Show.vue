@@ -3,6 +3,8 @@ import DynastyHeader from "@/Components/DynastyHeader.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import {toNumber} from "@vue/shared";
 import Card from "@/Components/Card.vue";
+import BreadcrumbsItem from "@/Components/BreadcrumbsItem.vue";
+import SecondaryButtonLink from "@/Components/SecondaryButtonLink.vue";
 
 defineProps({
     game: {
@@ -14,11 +16,29 @@ defineProps({
 
 <template>
     <AppLayout :title="`${game.season.dynasty.name} | View Game`" :selected_dynasty_id="game.season.dynasty.id">
-        <DynastyHeader :dynasty="game.season.dynasty" />
+        <DynastyHeader :dynasty="game.season.dynasty">
+            <template #breadcrumbs>
+                <BreadcrumbsItem :route="route('dynasties.seasons.index', game.season.dynasty.id)">
+                    Seasons
+                </BreadcrumbsItem>
+                <BreadcrumbsItem :route="route('seasons.show', game.season.id)">
+                    {{ game.season.year }}
+                </BreadcrumbsItem>
+                <BreadcrumbsItem :route="route('games.show', game.id)" :current="true">
+                    {{ game.type === 'Regular Season' ? 'Week ' + game.week : game.type }}
+                </BreadcrumbsItem>
+            </template>
+        </DynastyHeader>
 
-        <h2 class="text-lg font-bold">
-            {{ (game.type === 'Regular Season' ? 'Week ' + game.week : game.type) + ' ' + game.season.year }}
-        </h2>
+        <div class="flex justify-between items-center pb-3">
+            <h2 class="text-lg font-bold ">
+                {{ (game.type === 'Regular Season' ? 'Week ' + game.week : game.type) + ' ' + game.season.year }}
+            </h2>
+            <SecondaryButtonLink :href="route('games.edit', game.id)">
+                Edit
+            </SecondaryButtonLink>
+        </div>
+
 
         <Card>
             <template #title>

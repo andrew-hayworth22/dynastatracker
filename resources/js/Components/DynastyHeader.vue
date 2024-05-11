@@ -1,32 +1,38 @@
 <script setup>
 import Tabs from "@/Components/Tabs.vue";
+import Breadcrumbs from "@/Components/Breadcrumbs.vue";
+import BreadcrumbsHome from "@/Components/BreadcrumbsHome.vue";
+import BreadcrumbsItem from "@/Components/BreadcrumbsItem.vue";
+import {useSlots} from "vue";
 
 const props = defineProps({
     dynasty: Object
 })
 
-const tabs = [
-    {
-        name: 'Dashboard',
-        url: route('dynasties.show', props.dynasty.id),
-        current: route().current('dynasties.show', props.dynasty.id)
-    },
-    {
-        name: 'Seasons',
-        url: route('dynasties.seasons.index', props.dynasty.id),
-        current: route().current('dynasties.seasons.index', props.dynasty.id)
-    },
-    {
-        name: 'Players',
-        url: route('dynasties.players.index', props.dynasty.id),
-        current: route().current('dynasties.players.index', props.dynasty.id)
-    },
-    {
-        name: 'Teams',
-        url: route('dynasties.conferences.index', props.dynasty.id),
-        current: route().current('dynasties.conferences.index', props.dynasty.id)
-    }
-]
+const slots = useSlots()
+
+// const tabs = [
+//     {
+//         name: 'Dashboard',
+//         url: route('dynasties.show', props.dynasty.id),
+//         current: route().current('dynasties.show', props.dynasty.id)
+//     },
+//     {
+//         name: 'Seasons',
+//         url: route('dynasties.seasons.index', props.dynasty.id),
+//         current: route().current('dynasties.seasons.index', props.dynasty.id)
+//     },
+//     {
+//         name: 'Players',
+//         url: route('dynasties.players.index', props.dynasty.id),
+//         current: route().current('dynasties.players.index', props.dynasty.id)
+//     },
+//     {
+//         name: 'Teams',
+//         url: route('dynasties.conferences.index', props.dynasty.id),
+//         current: route().current('dynasties.conferences.index', props.dynasty.id)
+//     }
+// ]
 </script>
 
 <template>
@@ -37,7 +43,12 @@ const tabs = [
             </h1>
         </div>
 
-        <Tabs :tabs="tabs"/>
+        <Breadcrumbs v-if="slots.breadcrumbs">
+            <BreadcrumbsHome :route="route('dynasties.show', dynasty.id)" />
+            <slot name="breadcrumbs" />
+        </Breadcrumbs>
+
+<!--        <Tabs :tabs="tabs"/>-->
     </div>
 </template>
 

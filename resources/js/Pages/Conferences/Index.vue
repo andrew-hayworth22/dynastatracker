@@ -8,9 +8,10 @@ import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Card from "@/Components/Card.vue";
-import Slideout from "@/Components/Slideout.vue";
+import Slideout from "@/Components/Sidebar.vue";
 import DynastyHeader from "@/Components/DynastyHeader.vue";
 import EmptyState from "@/Components/EmptyState.vue";
+import BreadcrumbsItem from "@/Components/BreadcrumbsItem.vue";
 
 const props = defineProps({
     dynasty: {
@@ -97,7 +98,13 @@ const show = ref(false)
 
 <template>
     <AppLayout :title="`${dynasty.name} Teams`" :selected_dynasty_id="dynasty.id">
-        <DynastyHeader :dynasty="dynasty" />
+        <DynastyHeader :dynasty="dynasty">
+            <template #breadcrumbs>
+                <BreadcrumbsItem :route="route('dynasties.conferences.index', dynasty.id)" :current="true">
+                    Teams
+                </BreadcrumbsItem>
+            </template>
+        </DynastyHeader>
 
         <ul v-if="conferences.length > 0" class="flex flex-col gap-6">
             <li v-for="conference in conferences" :key="conference.id">

@@ -16,9 +16,10 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Card from "@/Components/Card.vue";
 import {toNumber} from "@vue/shared";
 import BreadcrumbsItem from "@/Components/BreadcrumbsItem.vue";
+import SecondaryButtonLink from "@/Components/SecondaryButtonLink.vue";
 
 const props = defineProps({
-    season: {
+    game: {
         type: Object,
         required: true,
     },
@@ -29,81 +30,81 @@ const props = defineProps({
 });
 
 const form = useForm({
-    'opp_team_id': null,
-    'location': null,
-    'type': null,
-    'week': 0,
-    'coverage': null,
-    'date': null,
+    'opp_team_id': props.game.opp_team_id,
+    'location': props.game.location,
+    'type': props.game.type,
+    'week': props.game.week,
+    'coverage': props.game.coverage,
+    'date': props.game.date,
 
-    'our_score_q1': 0,
-    'our_score_q2': 0,
-    'our_score_q3': 0,
-    'our_score_q4': 0,
-    'our_score_ot': 0,
-    'our_first_downs': 0,
-    'our_rush_att': 0,
-    'our_rush_yds': 0,
-    'our_rush_tds': 0,
-    'our_pass_comp': 0,
-    'our_pass_att': 0,
-    'our_pass_yds': 0,
-    'our_pass_tds': 0,
-    'our_third_down_att': 0,
-    'our_third_down_conv': 0,
-    'our_fourth_down_att': 0,
-    'our_fourth_down_conv': 0,
-    'our_two_point_att': 0,
-    'our_two_point_conv': 0,
-    'our_red_zone_att': 0,
-    'our_red_zone_fgs': 0,
-    'our_red_zone_tds': 0,
-    'our_fumbles_lost': 0,
-    'our_ints': 0,
-    'our_punt_return_yds': 0,
-    'our_kick_return_yds': 0,
-    'our_punts': 0,
-    'our_punt_avg': 0,
-    'our_penalties': 0,
-    'our_penalty_yds': 0,
-    'our_top_min': 0,
-    'our_top_sec': 0,
+    'our_score_q1': props.game.our_score_q1,
+    'our_score_q2': props.game.our_score_q2,
+    'our_score_q3': props.game.our_score_q3,
+    'our_score_q4': props.game.our_score_q4,
+    'our_score_ot': props.game.our_score_ot,
+    'our_first_downs': props.game.our_first_downs,
+    'our_rush_att': props.game.our_rush_att,
+    'our_rush_yds': props.game.our_rush_yds,
+    'our_rush_tds': props.game.our_rush_tds,
+    'our_pass_comp': props.game.our_pass_comp,
+    'our_pass_att': props.game.our_pass_att,
+    'our_pass_yds': props.game.our_pass_yds,
+    'our_pass_tds': props.game.our_pass_tds,
+    'our_third_down_att': props.game.our_third_down_att,
+    'our_third_down_conv': props.game.our_third_down_conv,
+    'our_fourth_down_att': props.game.our_fourth_down_att,
+    'our_fourth_down_conv': props.game.our_fourth_down_conv,
+    'our_two_point_att': props.game.our_two_point_att,
+    'our_two_point_conv': props.game.our_two_point_conv,
+    'our_red_zone_att': props.game.our_red_zone_att,
+    'our_red_zone_fgs': props.game.our_red_zone_fgs,
+    'our_red_zone_tds': props.game.our_red_zone_tds,
+    'our_fumbles_lost': props.game.our_fumbles_lost,
+    'our_ints': props.game.our_ints,
+    'our_punt_return_yds': props.game.our_punt_return_yds,
+    'our_kick_return_yds': props.game.our_kick_return_yds,
+    'our_punts': props.game.our_punts,
+    'our_punt_avg': props.game.our_punt_avg,
+    'our_penalties': props.game.our_penalties,
+    'our_penalty_yds': props.game.our_penalty_yds,
+    'our_top_min': props.game.our_top_min,
+    'our_top_sec': props.game.our_top_sec,
 
-    'opp_score_q1': 0,
-    'opp_score_q2': 0,
-    'opp_score_q3': 0,
-    'opp_score_q4': 0,
-    'opp_score_ot': 0,
-    'opp_first_downs': 0,
-    'opp_rush_att': 0,
-    'opp_rush_yds': 0,
-    'opp_rush_tds': 0,
-    'opp_pass_comp': 0,
-    'opp_pass_att': 0,
-    'opp_pass_yds': 0,
-    'opp_pass_tds': 0,
-    'opp_third_down_att': 0,
-    'opp_third_down_conv': 0,
-    'opp_fourth_down_att': 0,
-    'opp_fourth_down_conv': 0,
-    'opp_two_point_att': 0,
-    'opp_two_point_conv': 0,
-    'opp_red_zone_att': 0,
-    'opp_red_zone_fgs': 0,
-    'opp_red_zone_tds': 0,
-    'opp_fumbles_lost': 0,
-    'opp_ints': 0,
-    'opp_punt_return_yds': 0,
-    'opp_kick_return_yds': 0,
-    'opp_punts': 0,
-    'opp_punt_avg': 0,
-    'opp_penalties': 0,
-    'opp_penalty_yds': 0,
-    'opp_top_min': 0,
-    'opp_top_sec': 0,
+    'opp_score_q1': props.game.opp_score_q1,
+    'opp_score_q2': props.game.opp_score_q2,
+    'opp_score_q3': props.game.opp_score_q3,
+    'opp_score_q4': props.game.opp_score_q4,
+    'opp_score_ot': props.game.opp_score_ot,
+    'opp_first_downs': props.game.opp_first_downs,
+    'opp_rush_att': props.game.opp_rush_att,
+    'opp_rush_yds': props.game.opp_rush_yds,
+    'opp_rush_tds': props.game.opp_rush_tds,
+    'opp_pass_comp': props.game.opp_pass_comp,
+    'opp_pass_att': props.game.opp_pass_att,
+    'opp_pass_yds': props.game.opp_pass_yds,
+    'opp_pass_tds': props.game.opp_pass_tds,
+    'opp_third_down_att': props.game.opp_third_down_att,
+    'opp_third_down_conv': props.game.opp_third_down_conv,
+    'opp_fourth_down_att': props.game.opp_fourth_down_att,
+    'opp_fourth_down_conv': props.game.opp_fourth_down_conv,
+    'opp_two_point_att': props.game.opp_two_point_att,
+    'opp_two_point_conv': props.game.opp_two_point_conv,
+    'opp_red_zone_att': props.game.opp_red_zone_att,
+    'opp_red_zone_fgs': props.game.opp_red_zone_fgs,
+    'opp_red_zone_tds': props.game.opp_red_zone_tds,
+    'opp_fumbles_lost': props.game.opp_fumbles_lost,
+    'opp_ints': props.game.opp_ints,
+    'opp_punt_return_yds': props.game.opp_punt_return_yds,
+    'opp_kick_return_yds': props.game.opp_kick_return_yds,
+    'opp_punts': props.game.opp_punts,
+    'opp_punt_avg': props.game.opp_punt_avg,
+    'opp_penalties': props.game.opp_penalties,
+    'opp_penalty_yds': props.game.opp_penalty_yds,
+    'opp_top_min': props.game.opp_top_min,
+    'opp_top_sec': props.game.opp_top_sec,
 });
-const createGame = () => {
-    form.post(route('seasons.games.store', {season: props.season.id}));
+const updateGame = () => {
+    form.put(route('games.update', {game: props.game.id}));
 };
 
 const opposingTeamName = ref('Opposing Team');
@@ -118,25 +119,29 @@ const updateOpposingTeamName = () => {
 
     opposingTeamName.value = dropdown.selectedOptions[0].innerText;
 };
+
+onMounted(() => {
+    updateOpposingTeamName();
+});
 </script>
 
 <template>
-    <AppLayout :title="`${season.dynasty.name} | Create Game`" :selected_dynasty_id="season.dynasty.id">
-        <DynastyHeader :dynasty="season.dynasty">
+    <AppLayout :title="`${game.season.dynasty.name} | Create Game`" :selected_dynasty_id="game.season.dynasty.id">
+        <DynastyHeader :dynasty="game.season.dynasty">
             <template #breadcrumbs>
-                <BreadcrumbsItem :route="route('dynasties.seasons.index', season.dynasty.id)" :current="true">
+                <BreadcrumbsItem :route="route('dynasties.seasons.index', game.season.dynasty.id)" :current="true">
                     Seasons
                 </BreadcrumbsItem>
-                <BreadcrumbsItem :route="route('seasons.show', season.id)" :current="true">
-                    {{ season.year }}
+                <BreadcrumbsItem :route="route('seasons.show', game.season.id)" :current="true">
+                    {{ game.season.year }}
                 </BreadcrumbsItem>
-                <BreadcrumbsItem :route="route('seasons.games.create', season.id)" :current="true">
+                <BreadcrumbsItem :route="route('seasons.games.create', game.season.id)" :current="true">
                     Create Game
                 </BreadcrumbsItem>
             </template>
         </DynastyHeader>
 
-        <form @submit.prevent="createGame" class="flex flex-col gap-4">
+        <form @submit.prevent="updateGame" class="flex flex-col gap-4">
             <Card>
                 <template #title>
                     Game Information
@@ -275,7 +280,7 @@ const updateOpposingTeamName = () => {
                     <div class="pb-1 font-bold">OT</div>
                     <div class="pb-1 font-bold">F</div>
 
-                    <div class="flex items-center text-left"> {{ season.team.college_abbreviation }} </div>
+                    <div class="flex items-center text-left"> {{ game.season.team.college_abbreviation }} </div>
                     <div>
                         <InputLabel for="our_score_q1" class="sr-only">
                             Our Score Q1
@@ -402,7 +407,7 @@ const updateOpposingTeamName = () => {
             <div class="grid xl:grid-cols-2 gap-4">
                 <Card>
                     <template #title>
-                        {{ season.team.college_abbreviation }} Team Stats
+                        {{ game.season.team.college_abbreviation }} Team Stats
                     </template>
 
                     <div class="flex flex-col gap-6">
@@ -1269,9 +1274,15 @@ const updateOpposingTeamName = () => {
                 </Card>
             </div>
             <Card>
-                <PrimaryButton :disabled="form.processing">
-                    Save
-                </PrimaryButton>
+                <div class="flex gap-3">
+                    <PrimaryButton :disabled="form.processing">
+                        Save
+                    </PrimaryButton>
+                    <SecondaryButtonLink :href="route('games.show', game.id)">
+                        Cancel
+                    </SecondaryButtonLink>
+                </div>
+
             </Card>
         </form>
     </AppLayout>

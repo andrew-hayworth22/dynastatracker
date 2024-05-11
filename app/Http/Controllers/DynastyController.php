@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\DynastyResource;
+use App\Http\Resources\SeasonResource;
+use App\Http\Resources\TeamResource;
 use App\Models\Dynasty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -59,7 +61,9 @@ class DynastyController extends Controller
         Gate::authorize('view', $dynasty);
 
         return inertia('Dynasties/Show', [
-            'dynasty' => DynastyResource::make($dynasty)
+            'dynasty' => fn () => DynastyResource::make($dynasty),
+            'seasons' => fn () => SeasonResource::collection($dynasty->seasons()->with('games', 'team')->orderBy('year', 'desc')->limit(3)->get()),
+            'teams' => fn () => TeamResource::collection($dynasty->teams()->orderBy('college_abbreviation')->get()),
         ]);
     }
 
