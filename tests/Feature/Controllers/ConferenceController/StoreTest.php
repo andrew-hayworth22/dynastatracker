@@ -56,5 +56,5 @@ it('requires valid data', function (array $badData, array|string $errors) {
     [['abbreviation' => true], 'abbreviation'],
     [['abbreviation' => 1], 'abbreviation'],
     [['abbreviation' => 1.5], 'abbreviation'],
-    [['abbreviation' => str_repeat('a', 11)], 'abbreviation']
+    [['abbreviation' => str_repeat('a', 256)], 'abbreviation']
 ]);

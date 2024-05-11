@@ -33,7 +33,7 @@ class ConferenceController extends Controller
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'abbreviation' => ['required', 'string', 'max:10']
+            'abbreviation' => ['required', 'string', 'max:255']
         ]);
 
         $dynasty->conferences()->create($data);
