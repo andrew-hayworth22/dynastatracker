@@ -20,17 +20,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()
-            ->has(Dynasty::factory(4)
-                ->has(Conference::factory(3)
-                    ->has(Division::factory(2)
-                        ->has(Team::factory(5))))
-                ->has(Season::factory(5)
-                    ->has(Game::factory(10)))
-                ->has(Player::factory(50)))
+        $user = User::factory()
             ->create([
                 'name' => 'Andy Hayworth',
                 'email' => 'andy@example.com',
             ]);
+
+        $dynasties = Dynasty::factory(4)->recycle($user)->create();
+
+        foreach ($dynasties as $dynasty) {
+            $conferences = Conference::factory(3)->recycle($dynasty)->create();
+
+            foreach ($conferences as $conference) {
+                $divisions = Division::factory(2)->recycle($conference)->create();
+
+                foreach ($divisions as $division) {
+                    Team::factory(5)->recycle($division)->create();
+                }
+            }
+
+            Player::factory(50)->recycle($dynasty)->create();
+
+            $seasons = Season::factory(5)->recycle([$dynasty, $dynasty->teams])->create();
+            foreach ($seasons as $season) {
+                Game::factory(12)->recycle([$season, $dynasty->teams])->create();
+            }
+        }
     }
 }

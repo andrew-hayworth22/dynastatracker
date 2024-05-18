@@ -27,6 +27,18 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    gameTypes: {
+        type: Array,
+        required: true,
+    },
+    coverages: {
+        type: Array,
+        required: true,
+    },
+    locations: {
+        type: Array,
+        required: true,
+    }
 });
 
 const form = useForm({
@@ -129,14 +141,17 @@ onMounted(() => {
     <AppLayout :title="`${game.season.dynasty.name} | Create Game`" :selected_dynasty_id="game.season.dynasty.id">
         <DynastyHeader :dynasty="game.season.dynasty">
             <template #breadcrumbs>
-                <BreadcrumbsItem :route="route('dynasties.seasons.index', game.season.dynasty.id)" :current="true">
+                <BreadcrumbsItem :route="route('dynasties.seasons.index', game.season.dynasty.id)">
                     Seasons
                 </BreadcrumbsItem>
-                <BreadcrumbsItem :route="route('seasons.show', game.season.id)" :current="true">
+                <BreadcrumbsItem :route="route('seasons.show', game.season.id)">
                     {{ game.season.year }}
                 </BreadcrumbsItem>
-                <BreadcrumbsItem :route="route('seasons.games.create', game.season.id)" :current="true">
-                    Create Game
+                <BreadcrumbsItem :route="route('games.show', game.id)">
+                    {{ game.type === 'Regular Season' ? 'Week ' + game.week : game.type }}
+                </BreadcrumbsItem>
+                <BreadcrumbsItem :route="route('games.edit', game.id)" :current="true">
+                    Edit
                 </BreadcrumbsItem>
             </template>
         </DynastyHeader>
@@ -181,13 +196,9 @@ onMounted(() => {
                                 <option :value="null" disabled>
                                     Select a type...
                                 </option>
-                                <option value="Regular Season"> Regular Season </option>
-                                <option value="Conference Championship"> Conference Championship </option>
-                                <option value="Bowl Game"> Bowl Game </option>
-                                <option value="National Octafinals"> National Octafinals </option>
-                                <option value="National Quarterfinals"> National Quarterfinals </option>
-                                <option value="National Semifinals"> National Semifinals </option>
-                                <option value="National Championship"> National Championship </option>
+                                <option v-for="gameType in gameTypes" :id="gameType">
+                                    {{ gameType }}
+                                </option>
                             </InputSelect>
                             <InputError :message="form.errors.type" class="mt-2" />
                         </div>
@@ -220,9 +231,9 @@ onMounted(() => {
                                 <option :value="null" disabled>
                                     Select a location...
                                 </option>
-                                <option value="Home"> Home </option>
-                                <option value="Away"> Away </option>
-                                <option value="Neutral"> Neutral </option>
+                                <option v-for="location in locations" :id="location">
+                                    {{ location }}
+                                </option>
                             </InputSelect>
                             <InputError :message="form.errors.location" class="mt-2" />
                         </div>
@@ -241,9 +252,9 @@ onMounted(() => {
                                 <option :value="null" disabled>
                                     Select a coverage...
                                 </option>
-                                <option value="None"> None </option>
-                                <option value="Regional"> Regional </option>
-                                <option value="National"> National </option>
+                                <option v-for="coverage in coverages" :id="coverage">
+                                    {{ coverage }}
+                                </option>
                             </InputSelect>
                             <InputError :message="form.errors.coverage" class="mt-2" />
                         </div>

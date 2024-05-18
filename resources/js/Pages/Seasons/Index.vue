@@ -21,6 +21,10 @@ const props = defineProps({
     teams: {
         type: Array,
         required: true
+    },
+    coachTypes: {
+        type: Array,
+        required: true
     }
 });
 
@@ -71,6 +75,7 @@ const showSidebar = ref(false);
         <SeasonSidebar :open="showSidebar"
                        :dynastyId="dynasty.id"
                        :teams="teams"
+                       :coachTypes="coachTypes"
                        @close="showSidebar = false"/>
     </AppLayout>
 </template>

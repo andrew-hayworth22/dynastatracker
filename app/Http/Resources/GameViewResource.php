@@ -32,6 +32,9 @@ class GameViewResource extends JsonResource
             'opp_score_q4' => $this->opp_score_q4,
             'opp_score_ot' => $this->opp_score_ot,
             'opp_score' => $this->opp_score,
+
+            'our_top_percentage' => round((($this->our_top_min + ($this->our_top_sec / 60)) / ($this->our_top_min + ($this->our_top_sec / 60) + $this->opp_top_min + ($this->opp_top_sec / 60))) * 100, 2),
+            'opp_top_percentage' => round((($this->opp_top_min + ($this->opp_top_sec / 60)) / ($this->our_top_min + ($this->our_top_sec / 60) + $this->opp_top_min + ($this->opp_top_sec / 60))) * 100, 2),
         ];
     }
 }

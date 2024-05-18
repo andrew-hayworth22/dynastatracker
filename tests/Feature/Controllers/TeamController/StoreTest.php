@@ -59,7 +59,7 @@ it('requires valid data', function (array $badData, array|string $errors) {
     [['college_abbreviation' => true], 'college_abbreviation'],
     [['college_abbreviation' => 1], 'college_abbreviation'],
     [['college_abbreviation' => 1.5], 'college_abbreviation'],
-    [['college_abbreviation' => str_repeat('a', 11)], 'college_abbreviation'],
+    [['college_abbreviation' => str_repeat('a', 256)], 'college_abbreviation'],
     [['mascot' => null], 'mascot'],
     [['mascot' => true], 'mascot'],
     [['mascot' => 1], 'mascot'],

@@ -26,6 +26,18 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    gameTypes: {
+        type: Array,
+        required: true,
+    },
+    coverages: {
+        type: Array,
+        required: true,
+    },
+    locations: {
+        type: Array,
+        required: true,
+    }
 });
 
 const form = useForm({
@@ -176,13 +188,9 @@ const updateOpposingTeamName = () => {
                                 <option :value="null" disabled>
                                     Select a type...
                                 </option>
-                                <option value="Regular Season"> Regular Season </option>
-                                <option value="Conference Championship"> Conference Championship </option>
-                                <option value="Bowl Game"> Bowl Game </option>
-                                <option value="National Octafinals"> National Octafinals </option>
-                                <option value="National Quarterfinals"> National Quarterfinals </option>
-                                <option value="National Semifinals"> National Semifinals </option>
-                                <option value="National Championship"> National Championship </option>
+                                <option v-for="gameType in gameTypes" :id="gameType">
+                                    {{ gameType }}
+                                </option>
                             </InputSelect>
                             <InputError :message="form.errors.type" class="mt-2" />
                         </div>
@@ -215,9 +223,9 @@ const updateOpposingTeamName = () => {
                                 <option :value="null" disabled>
                                     Select a location...
                                 </option>
-                                <option value="Home"> Home </option>
-                                <option value="Away"> Away </option>
-                                <option value="Neutral"> Neutral </option>
+                                <option v-for="location in locations" :id="location">
+                                    {{ location }}
+                                </option>
                             </InputSelect>
                             <InputError :message="form.errors.location" class="mt-2" />
                         </div>
@@ -236,9 +244,9 @@ const updateOpposingTeamName = () => {
                                 <option :value="null" disabled>
                                     Select a coverage...
                                 </option>
-                                <option value="None"> None </option>
-                                <option value="Regional"> Regional </option>
-                                <option value="National"> National </option>
+                                <option v-for="coverage in coverages" :id="coverage">
+                                    {{ coverage }}
+                                </option>
                             </InputSelect>
                             <InputError :message="form.errors.coverage" class="mt-2" />
                         </div>

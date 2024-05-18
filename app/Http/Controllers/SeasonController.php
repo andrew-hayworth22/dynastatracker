@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enumerators\CoachType;
 use App\Http\Resources\DynastyResource;
 use App\Http\Resources\GameLogResource;
 use App\Http\Resources\PlayerResource;
@@ -25,7 +26,8 @@ class SeasonController extends Controller
         return inertia('Seasons/Index', [
             'dynasty' => fn () => DynastyResource::make($dynasty),
             'seasons' => fn () => SeasonResource::collection($dynasty->seasons()->latest('year')->latest()->get()->load(['team', 'games'])),
-            'teams' => fn () => TeamResource::collection($dynasty->teams)
+            'teams' => fn () => TeamResource::collection($dynasty->teams),
+            'coachTypes' => CoachType::strings()
         ]);
     }
 

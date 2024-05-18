@@ -24,6 +24,10 @@ defineProps({
         type: Array,
         required: true,
     },
+    coachTypes: {
+        type: Array,
+        required: true,
+    }
 });
 
 const showSeasonSidebar = ref(false);
@@ -108,6 +112,7 @@ const showSeasonSidebar = ref(false);
         <SeasonSidebar :teams="teams"
                        :dynasty-id="dynasty.id"
                        :open="showSeasonSidebar"
+                       :coachTypes="coachTypes"
                        @close="showSeasonSidebar=false"
         />
     </AppLayout>

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Player::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Season::class)->constrained()->cascadeOnDelete();
-            $table->enum('year', ['FR', 'FR (RS)', 'SO', 'SO (RS)', 'JR', 'JR (RS)', 'SR', 'SR (RS)']);
-            $table->foreignIdFor(Position::class)->constrained();
+            $table->tinyInteger('year');
+            $table->tinyInteger('position');
             $table->timestamps();
         });
     }

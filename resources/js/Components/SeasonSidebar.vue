@@ -21,15 +21,13 @@ const props = defineProps({
         type: Array,
         required: true
     },
+    coachTypes: {
+        type: Array,
+        required: true
+    }
 });
 
 const emit = defineEmits(['close']);
-
-const coachTypes = [
-    'OC',
-    'DC',
-    'HC',
-]
 
 const form = useForm({
     year: null,

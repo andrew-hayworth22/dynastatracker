@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enumerators\Coverage;
+use App\Enumerators\GameType;
+use App\Enumerators\Location;
 use App\Http\Resources\GameEditResource;
 use App\Http\Resources\GameViewResource;
 use App\Http\Resources\SeasonResource;
@@ -31,6 +34,9 @@ class GameController extends Controller
         return inertia('Games/Create', [
             'season' => SeasonResource::make($season->load(['dynasty', 'team'])),
             'teams' => TeamResource::collection($season->dynasty->teams()->orderBy('college_abbreviation')->get()),
+            'gameTypes' => GameType::strings(),
+            'coverages' => Coverage::strings(),
+            'locations' => Location::strings()
         ]);
     }
 
@@ -139,8 +145,11 @@ class GameController extends Controller
         Gate::authorize('update', $game);
 
         return inertia('Games/Edit', [
-            'game' => GameEditResource::make($game->load(['season', 'season.team'])),
-            'teams' => TeamResource::collection($game->season->dynasty->teams()->orderBy('college_abbreviation')->get()),
+            'game' => fn () => GameEditResource::make($game->load(['season', 'season.team', 'season.dynasty'])),
+            'teams' => fn () => TeamResource::collection($game->season->dynasty->teams()->orderBy('college_abbreviation')->get()),
+            'gameTypes' => GameType::strings(),
+            'coverages' => Coverage::strings(),
+            'locations' => Location::strings()
         ]);
     }
 

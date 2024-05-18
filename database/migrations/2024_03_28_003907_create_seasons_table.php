@@ -1,5 +1,6 @@
 <?php
 
+use App\Enumerators\CoachType;
 use App\Models\Dynasty;
 use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Dynasty::class)->constrained()->cascadeOnDelete();
             $table->year('year');
-            $table->enum('coach_type', ['OC', 'DC', 'HC']);
+            $table->enum('coach_type', CoachType::strings());
             $table->foreignIdFor(Team::class)->constrained();
             $table->timestamps();
         });

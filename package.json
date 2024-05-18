@@ -20,6 +20,8 @@
     },
     "dependencies": {
         "@headlessui/vue": "^1.7.19",
-        "@heroicons/vue": "^2.1.1"
+        "@heroicons/vue": "^2.1.1",
+        "apexcharts": "^3.49.1",
+        "vue3-apexcharts": "^1.5.2"
     }
 }

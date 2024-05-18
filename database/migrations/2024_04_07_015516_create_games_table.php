@@ -1,5 +1,8 @@
 <?php
 
+use App\Enumerators\Coverage;
+use App\Enumerators\GameType;
+use App\Enumerators\Location;
 use App\Models\Season;
 use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
@@ -17,10 +20,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Season::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Team::class, 'opp_team_id')->constrained('teams');
-            $table->enum('location', ['Home', 'Away', 'Neutral']);
-            $table->enum('type', ['Regular Season', 'Conference Championship', 'Bowl Game', 'National Octafinals', 'National Quarterfinals', 'National Semifinals', 'National Championship']);
+            $table->enum('location', Location::strings());
+            $table->enum('type', GameType::strings());
             $table->integer('week');
-            $table->enum('coverage', ['None', 'Regional', 'National']);
+            $table->enum('coverage', Coverage::strings());
             $table->dateTime('date');
 
             // Our stats

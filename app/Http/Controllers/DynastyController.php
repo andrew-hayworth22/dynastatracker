@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enumerators\CoachType;
 use App\Http\Resources\DynastyResource;
 use App\Http\Resources\SeasonResource;
 use App\Http\Resources\TeamResource;
@@ -64,6 +65,7 @@ class DynastyController extends Controller
             'dynasty' => fn () => DynastyResource::make($dynasty),
             'seasons' => fn () => SeasonResource::collection($dynasty->seasons()->with('games', 'team')->orderBy('year', 'desc')->limit(3)->get()),
             'teams' => fn () => TeamResource::collection($dynasty->teams()->orderBy('college_abbreviation')->get()),
+            'coachTypes' => CoachType::strings()
         ]);
     }
 
