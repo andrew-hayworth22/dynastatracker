@@ -55,6 +55,6 @@ it('returns the correct teams', function () {
 
     $this->actingAs($dynasty->user)
         ->get(route('dynasties.show', $dynasty->id))
-        ->assertHasResource('teams', TeamResource::collection($dynasty->teams()->orderBy('college_abbreviation')->get()));
+        ->assertHasResource('teams', TeamResource::collection($dynasty->teams()->orderBy('college_name')->get()));
 
 });

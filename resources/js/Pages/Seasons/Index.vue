@@ -50,7 +50,7 @@ const showSidebar = ref(false);
                         </Link>
                     </template>
                     <template #subtitle>
-                        {{ season.coach_type + " at " + season.team.college_abbreviation }}
+                        {{ season.coach_type + " at " + season.team.college_name }}
                     </template>
                 </ListItem>
             </ul>

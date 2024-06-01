@@ -16,6 +16,6 @@ class Player extends Model
     }
 
     public function seasons() : BelongsToMany {
-        return $this->belongsToMany(Season::class);
+        return $this->belongsToMany(Season::class)->withPivot('grade', 'position');
     }
 }

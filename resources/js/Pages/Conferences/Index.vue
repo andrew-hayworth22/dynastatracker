@@ -69,9 +69,7 @@ const createDivision = () => {
 const divisionId = ref(null);
 const teamForm = useForm({
     college_name: "",
-    college_abbreviation: "",
     mascot: "",
-    location: ""
 });
 
 const cancelTeamForm = () => {
@@ -129,7 +127,7 @@ const show = ref(false)
                             </h3>
                             <ul class="mb-1">
                                 <li v-for="team in division.teams" :key="team.id">
-                                    {{ team.college_abbreviation + " " + team.mascot }}
+                                    {{ team.college_name + " " + team.mascot }}
                                 </li>
                             </ul>
                             <PrimaryButton size="xs"
@@ -194,20 +192,6 @@ const show = ref(false)
                 </div>
 
                 <div>
-                    <InputLabel for="college_abbreviation">
-                        College Abbreviation
-                    </InputLabel>
-                    <TextInput
-                        id="college_abbreviation"
-                        v-model="teamForm.college_abbreviation"
-                        type="text"
-                        class="mt-1 block w-full"
-                        :has-errors="teamForm.errors.college_abbreviation !== undefined"
-                    />
-                    <InputError :message="teamForm.errors.college_abbreviation" class="mt-2" />
-                </div>
-
-                <div>
                     <InputLabel for="mascot">
                         Mascot
                     </InputLabel>
@@ -219,20 +203,6 @@ const show = ref(false)
                         :has-errors="teamForm.errors.mascot !== undefined"
                     />
                     <InputError :message="teamForm.errors.mascot" class="mt-2" />
-                </div>
-
-                <div>
-                    <InputLabel for="location">
-                        Location
-                    </InputLabel>
-                    <TextInput
-                        id="location"
-                        v-model="teamForm.location"
-                        type="text"
-                        class="mt-1 block w-full"
-                        :has-errors="teamForm.errors.location !== undefined"
-                    />
-                    <InputError :message="teamForm.errors.location" class="mt-2" />
                 </div>
 
                 <div class="flex gap-4">

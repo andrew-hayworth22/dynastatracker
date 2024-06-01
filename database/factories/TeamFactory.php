@@ -20,9 +20,7 @@ class TeamFactory extends Factory
         return [
             'division_id' => Division::factory(),
             'college_name' => $this->faker->word . ' University',
-            'college_abbreviation' => $this->faker->word,
             'mascot' => $this->faker->word,
-            'location' => $this->faker->unique()->city . ', ' . $this->faker->stateAbbr,
         ];
     }
 }

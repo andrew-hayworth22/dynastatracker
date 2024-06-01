@@ -57,34 +57,34 @@ const props = defineProps({
                     <div class="pb-1 font-bold">OT</div>
                     <div class="pb-1 font-bold">F</div>
 
-                    <div class="flex items-center text-left"> {{ game.season.team.college_abbreviation }} </div>
+                    <div class="flex items-center text-left"> {{ game.season.team.college_name }} </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.season.team.college_abbreviation }} Score Q1
+                        {{ game.season.team.college_name }} Score Q1
                     </span>
                         {{ game.our_score_q1 }}
                     </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.season.team.college_abbreviation }} Score Q2
+                        {{ game.season.team.college_name }} Score Q2
                     </span>
                         {{ game.our_score_q2 }}
                     </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.season.team.college_abbreviation }} Score Q3
+                        {{ game.season.team.college_name }} Score Q3
                     </span>
                         {{ game.our_score_q3 }}
                     </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.season.team.college_abbreviation }} Score Q4
+                        {{ game.season.team.college_name }} Score Q4
                     </span>
                         {{ game.our_score_q4 }}
                     </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.season.team.college_abbreviation }} Score OT
+                        {{ game.season.team.college_name }} Score OT
                     </span>
                         {{ game.our_score_ot }}
                     </div>
@@ -93,35 +93,35 @@ const props = defineProps({
                     </div>
 
                     <div class="flex items-center text-left">
-                        {{ game.opp_team.college_abbreviation }}
+                        {{ game.opp_team.college_name }}
                     </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.opp_team.college_abbreviation }} Score Q1
+                        {{ game.opp_team.college_name }} Score Q1
                     </span>
                         {{ game.opp_score_q1 }}
                     </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.opp_team.college_abbreviation }} Score Q2
+                        {{ game.opp_team.college_name }} Score Q2
                     </span>
                         {{ game.opp_score_q2 }}
                     </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.opp_team.college_abbreviation }} Score Q3
+                        {{ game.opp_team.college_name }} Score Q3
                     </span>
                         {{ game.opp_score_q3 }}
                     </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.opp_team.college_abbreviation }} Score Q4
+                        {{ game.opp_team.college_name }} Score Q4
                     </span>
                         {{ game.opp_score_q4 }}
                     </div>
                     <div>
                     <span class="sr-only">
-                        {{ game.opp_team.college_abbreviation }} Score OT
+                        {{ game.opp_team.college_name }} Score OT
                     </span>
                         {{ game.opp_score_ot }}
                     </div>

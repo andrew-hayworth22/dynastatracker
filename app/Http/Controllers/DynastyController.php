@@ -64,7 +64,7 @@ class DynastyController extends Controller
         return inertia('Dynasties/Show', [
             'dynasty' => fn () => DynastyResource::make($dynasty),
             'seasons' => fn () => SeasonResource::collection($dynasty->seasons()->with('games', 'team')->orderBy('year', 'desc')->limit(3)->get()),
-            'teams' => fn () => TeamResource::collection($dynasty->teams()->orderBy('college_abbreviation')->get()),
+            'teams' => fn () => TeamResource::collection($dynasty->teams()->orderBy('college_name')->get()),
             'coachTypes' => CoachType::strings()
         ]);
     }

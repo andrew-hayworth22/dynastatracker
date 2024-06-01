@@ -19,7 +19,7 @@ const options = {
             enabled: false
         }
     },
-    labels: [props.game.season.team.college_abbreviation, props.game.opp_team.college_abbreviation],
+    labels: [props.game.season.team.college_name, props.game.opp_team.college_name],
     colors: [colors.us, colors.opp]
 }
 

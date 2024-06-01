@@ -170,7 +170,7 @@ const updateOpposingTeamName = () => {
                                     Select a team...
                                 </option>
                                 <option v-for="team in teams" :key="team.id" :value="team.id">
-                                    {{ team.college_abbreviation }}
+                                    {{ team.college_name }}
                                 </option>
                             </InputSelect>
                             <InputError :message="form.errors.opp_team_id" class="mt-2" />
@@ -283,7 +283,7 @@ const updateOpposingTeamName = () => {
                     <div class="pb-1 font-bold">OT</div>
                     <div class="pb-1 font-bold">F</div>
 
-                    <div class="flex items-center text-left"> {{ season.team.college_abbreviation }} </div>
+                    <div class="flex items-center text-left"> {{ season.team.college_name }} </div>
                     <div>
                         <InputLabel for="our_score_q1" class="sr-only">
                             Our Score Q1
@@ -410,7 +410,7 @@ const updateOpposingTeamName = () => {
             <div class="grid xl:grid-cols-2 gap-4">
                 <Card>
                     <template #title>
-                        {{ season.team.college_abbreviation }} Team Stats
+                        {{ season.team.college_name }} Team Stats
                     </template>
 
                     <div class="flex flex-col gap-6">

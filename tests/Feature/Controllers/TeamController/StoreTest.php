@@ -6,9 +6,7 @@ use App\Models\User;
 beforeEach(function () {
     $this->validData = [
         'college_name' => 'Test University',
-        'college_abbreviation' => 'Test',
-        'mascot' => 'Testers',
-        'location' => 'Test, TE',
+        'mascot' => 'Testers'
     ];
 });
 
@@ -55,18 +53,9 @@ it('requires valid data', function (array $badData, array|string $errors) {
     [['college_name' => 1], 'college_name'],
     [['college_name' => 1.5], 'college_name'],
     [['college_name' => str_repeat('a', 256)], 'college_name'],
-    [['college_abbreviation' => null], 'college_abbreviation'],
-    [['college_abbreviation' => true], 'college_abbreviation'],
-    [['college_abbreviation' => 1], 'college_abbreviation'],
-    [['college_abbreviation' => 1.5], 'college_abbreviation'],
-    [['college_abbreviation' => str_repeat('a', 256)], 'college_abbreviation'],
     [['mascot' => null], 'mascot'],
     [['mascot' => true], 'mascot'],
     [['mascot' => 1], 'mascot'],
     [['mascot' => 1.5], 'mascot'],
     [['mascot' => str_repeat('a', 256)], 'mascot'],
-    [['location' => true], 'location'],
-    [['location' => 1], 'location'],
-    [['location' => 1.5], 'location'],
-    [['location' => str_repeat('a', 256)], 'location']
 ]);

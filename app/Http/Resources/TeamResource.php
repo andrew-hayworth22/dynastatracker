@@ -18,9 +18,7 @@ class TeamResource extends JsonResource
             'id' => $this->id,
             'division' => $this->whenLoaded('division', fn () => DivisionResource::make($this->division)),
             'college_name' => $this->college_name,
-            'college_abbreviation' => $this->college_abbreviation,
             'mascot' => $this->mascot,
-            'location' => $this->location,
         ];
     }
 }

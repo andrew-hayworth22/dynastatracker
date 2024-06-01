@@ -77,7 +77,7 @@ const createSeason = () => {
                     <option :value="null">Select a team...</option>
                     <option v-for="team in teams" :key="team.id"
                             :value="team.id">
-                        {{ team.college_abbreviation }}
+                        {{ team.college_name }}
                     </option>
                 </InputSelect>
                 <InputError :message="form.errors.team_id" class="mt-2" />

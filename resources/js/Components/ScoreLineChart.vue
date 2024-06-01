@@ -26,7 +26,7 @@ const options = {
 
 const series = [
     {
-        name: props.game.season.team.college_abbreviation,
+        name: props.game.season.team.college_name,
         data: [
             props.game.our_score_q1,
             props.game.our_score_q1 + props.game.our_score_q2,
@@ -37,7 +37,7 @@ const series = [
         color: colors.us
     },
     {
-        name: props.game.opp_team.college_abbreviation,
+        name: props.game.opp_team.college_name,
         data: [
             props.game.opp_score_q1,
             props.game.opp_score_q1 + props.game.opp_score_q2,

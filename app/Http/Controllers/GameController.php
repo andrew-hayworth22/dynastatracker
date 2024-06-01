@@ -33,7 +33,7 @@ class GameController extends Controller
 
         return inertia('Games/Create', [
             'season' => SeasonResource::make($season->load(['dynasty', 'team'])),
-            'teams' => TeamResource::collection($season->dynasty->teams()->orderBy('college_abbreviation')->get()),
+            'teams' => TeamResource::collection($season->dynasty->teams()->orderBy('college_name')->get()),
             'gameTypes' => GameType::strings(),
             'coverages' => Coverage::strings(),
             'locations' => Location::strings()
@@ -146,7 +146,7 @@ class GameController extends Controller
 
         return inertia('Games/Edit', [
             'game' => fn () => GameEditResource::make($game->load(['season', 'season.team', 'season.dynasty'])),
-            'teams' => fn () => TeamResource::collection($game->season->dynasty->teams()->orderBy('college_abbreviation')->get()),
+            'teams' => fn () => TeamResource::collection($game->season->dynasty->teams()->orderBy('college_name')->get()),
             'gameTypes' => GameType::strings(),
             'coverages' => Coverage::strings(),
             'locations' => Location::strings()

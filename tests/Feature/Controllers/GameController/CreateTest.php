@@ -39,5 +39,5 @@ it('returns the correct teams', function () {
 
     $this->actingAs($season->dynasty->user)
         ->get(route('seasons.games.create', $season))
-        ->assertHasResource('teams', TeamResource::collection($season->dynasty->teams()->orderBy('college_abbreviation')->get()));
+        ->assertHasResource('teams', TeamResource::collection($season->dynasty->teams()->orderBy('college_name')->get()));
 });

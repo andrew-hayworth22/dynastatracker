@@ -178,7 +178,7 @@ onMounted(() => {
                                     Select a team...
                                 </option>
                                 <option v-for="team in teams" :key="team.id" :value="team.id">
-                                    {{ team.college_abbreviation }}
+                                    {{ team.college_name }}
                                 </option>
                             </InputSelect>
                             <InputError :message="form.errors.opp_team_id" class="mt-2" />
@@ -291,7 +291,7 @@ onMounted(() => {
                     <div class="pb-1 font-bold">OT</div>
                     <div class="pb-1 font-bold">F</div>
 
-                    <div class="flex items-center text-left"> {{ game.season.team.college_abbreviation }} </div>
+                    <div class="flex items-center text-left"> {{ game.season.team.college_name }} </div>
                     <div>
                         <InputLabel for="our_score_q1" class="sr-only">
                             Our Score Q1

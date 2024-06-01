@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Player::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Season::class)->constrained()->cascadeOnDelete();
-            $table->tinyInteger('year');
+            $table->tinyInteger('grade');
             $table->tinyInteger('position');
             $table->timestamps();
         });

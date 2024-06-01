@@ -1,6 +1,5 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import PrimaryButtonLink from "@/Components/PrimaryButtonLink.vue";
 import DynastyHeader from "@/Components/DynastyHeader.vue";
 import {Link} from "@inertiajs/vue3";
 import Card from "@/Components/Card.vue";
@@ -8,7 +7,6 @@ import EmptyState from "@/Components/EmptyState.vue";
 import {ref, useSlots} from "vue";
 import SeasonSidebar from "@/Components/SeasonSidebar.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import {ChevronRightIcon} from "@heroicons/vue/24/solid/index.js";
 import DashboardLink from "@/Components/DashboardLink.vue";
 
 defineProps({
@@ -71,7 +69,7 @@ const showSeasonSidebar = ref(false);
                                                     </Link>
                                                 </td>
                                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                    {{ season.coach_type + ' @ ' + season.team.college_abbreviation }}
+                                                    {{ season.coach_type + ' @ ' + season.team.college_name }}
                                                 </td>
                                                 <td class="whitespace-nowrap pl-3 sm:pr-6 pr-4 py-4 text-sm text-gray-500 text-right">
                                                     {{ season.record }}

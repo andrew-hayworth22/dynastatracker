@@ -39,7 +39,7 @@ defineProps({
                         {{ season.year }}
                     </template>
 
-                    {{ season.coach_type + ' @ ' + season.team.college_abbreviation }}
+                    {{ season.coach_type + ' @ ' + season.team.college_name }}
 
                 </Card>
 
@@ -75,7 +75,7 @@ defineProps({
                                                         </Link>
                                                     </td>
                                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                        {{ (game.location === 'Away' ? '@ ' : '') + game.opp_team.college_abbreviation }}
+                                                        {{ (game.location === 'Away' ? '@ ' : '') + game.opp_team.college_name }}
                                                     </td>
                                                     <td class="whitespace-nowrap pl-3 sm:pr-6 pr-4 py-4 text-sm text-gray-500 text-right">
                                                         <span :class="{'text-green-500': game.our_score > game.opp_score, 'text-red-500': game.our_score <= game.opp_score}">
@@ -98,6 +98,9 @@ defineProps({
                 </Card>
             </div>
             <div>
+                <Card>
+
+                </Card>
                 <PrimaryButtonLink :href="route('seasons.roster', season.id)">
                     Roster
                 </PrimaryButtonLink>

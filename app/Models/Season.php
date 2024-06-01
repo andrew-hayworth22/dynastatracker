@@ -23,7 +23,7 @@ class Season extends Model
     }
 
     public function players() : BelongsToMany {
-        return $this->belongsToMany(Player::class);
+        return $this->belongsToMany(Player::class)->withPivot('grade', 'position');
     }
 
     public function games() : HasMany {

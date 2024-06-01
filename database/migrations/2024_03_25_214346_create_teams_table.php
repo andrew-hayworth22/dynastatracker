@@ -16,9 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Division::class)->constrained()->cascadeOnDelete();
             $table->string('college_name');
-            $table->string('college_abbreviation');
             $table->string('mascot');
-            $table->string('location');
             $table->timestamps();
         });
     }
