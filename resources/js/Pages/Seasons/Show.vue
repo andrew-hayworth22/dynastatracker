@@ -99,11 +99,10 @@ defineProps({
             </div>
             <div>
                 <Card>
-
+                    <PrimaryButtonLink :href="route('seasons.roster', season.id)">
+                        Roster
+                    </PrimaryButtonLink>
                 </Card>
-                <PrimaryButtonLink :href="route('seasons.roster', season.id)">
-                    Roster
-                </PrimaryButtonLink>
             </div>
         </div>
     </AppLayout>
